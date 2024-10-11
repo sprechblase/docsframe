@@ -1,0 +1,55 @@
+name: Bug report
+description: Create a report to help us improve
+title: '[BUG] '
+labels: ['bug']
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened? Describe the bug
+      description: A clear and concise description of what the bug is. Provide steps to reproduce the bug.
+      value: 'Oh no. A bug happened!'
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: What was the expected behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: dropdown
+    id: plattform
+    attributes:
+      label: Desktop or Smartphone?
+      multiple: true
+      options:
+        - Desktop
+        - Smartphone
+  - type: dropdown
+    id: os
+    attributes:
+      label: OS?
+      multiple: true
+      options:
+        - Windows
+        - MacOS
+        - iOS
+        - Android
+        - Other
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browser(s) are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chromium-based (Chrome, Edge, Brave, Opera, mobile chrome/chromium based, etc)
+        - Safari
+        - Firefox Mobile
+        - Safari Mobile
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Info
+      description: Anything else that could be used to narrow down the issue e.g. Screenshots
