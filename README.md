@@ -2,8 +2,6 @@
 Docuframe
 </h1>
 
----
-
 <div align="center">
 
 ![Stars](https://img.shields.io/github/stars/skredev/docuframe?logo=github&style=flat)
