@@ -11,7 +11,7 @@ Docsframe
 
 </div>
 
-![hero](https://placehold.co/2400x1256)
+![hero](https://github.com/skredev/docsframe/blob/main/public/preview.png)
 
 ### Shoutout to these awesome projects
 
