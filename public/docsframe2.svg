@@ -1,0 +1,15 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="64"
+  height="64"
+  viewBox="0 0 64 64"
+>
+  <g id="a" data-name="Ebene 2">
+    <rect width="64" height="64" rx="14" ry="14" fill="#000" stroke-width="0"/>
+  </g>
+  <g id="b" data-name="Ebene 1">
+    <path d="m19.59,31.64V14.71c0-2.3,1.88-4.19,4.19-4.19h16.44c2.3,0,4.19,1.88,4.19,4.19v13.41" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
+    <path d="m44.41,39.69v7.75c0,2.3-1.88,4.19-4.19,4.19h-16.44c-2.3,0-4.19-1.88-4.19-4.19v-4.83" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
+    <path d="m19.48,27.45c-.21.09-.53.22-.9.39-.96.44-2.12.99-3.33,1.96-.66.53-1.14.94-1.55,1.63-.31.53-.5,1.15-.46,1.76,0,.14.03.28.06.42.23.93,1.02,1.63,1.85,2.12,3.18,1.9,7.33,1.8,10.91,1.77,4.05-.04,8.1-.53,12.05-1.45,3.84-.89,7.78-2.14,10.86-4.71.59-.49,1.14-1.04,1.48-1.73.34-.68.45-1.51.15-2.21-.11-.26-.41-.9-2.06-1.7-.87-.42-2.26-.96-4.13-1.15" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="3"/>
+  </g>
+</svg>

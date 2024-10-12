@@ -1,13 +1,13 @@
 <h1 align="center">
-Docuframe
+Docsframe
 </h1>
 
 <div align="center">
 
-![Stars](https://img.shields.io/github/stars/skredev/docuframe?logo=github&style=flat)
-![Version](https://img.shields.io/github/package-json/v/skredev/docuframe?logo=git&logoColor=white&style=flat)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/skredev/docuframe/main?logo=git&logoColor=white&style=flat)
-![License](https://img.shields.io/github/license/skredev/docuframe?logoColor=white&style=flat)
+![Stars](https://img.shields.io/github/stars/skredev/docsframe?logo=github&style=flat)
+![Version](https://img.shields.io/github/package-json/v/skredev/docsframe?logo=git&logoColor=white&style=flat)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/skredev/docsframe/main?logo=git&logoColor=white&style=flat)
+![License](https://img.shields.io/github/license/skredev/docsframe?logoColor=white&style=flat)
 
 </div>
 
@@ -19,7 +19,7 @@ Docuframe
 
 ## Documentation
 
-Visit our [documentation](https://docuframe.work/docs) to learn more about Docuframe
+Visit our [documentation](https://docsframe.work/docs) to learn more about Docuframe
 
 ## Reporting Issues
 
@@ -31,4 +31,4 @@ We appreciate your feedback and will do our best to address the issues fast!
 
 We welcome and appreciate any contributions!
 
-To get started, check out our [contribution guide](https://github.com/skredev/docuframe/blob/main/CONTRIBUTING.md).
+To get started, check out our [contribution guide](https://github.com/skredev/docsframe/blob/main/CONTRIBUTING.md).

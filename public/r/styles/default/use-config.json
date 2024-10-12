@@ -1,0 +1,15 @@
+{
+  "name": "use-config",
+  "type": "registry:lib",
+  "dependencies": [
+    "jotai",
+    "jotai/utils"
+  ],
+  "files": [
+    {
+      "path": "lib/use-config.ts",
+      "content": "import { useAtom } from \"jotai\";\nimport { atomWithStorage } from \"jotai/utils\";\n\nimport { BaseColor } from \"@/registry/registry-base-colors\";\nimport { Style } from \"@/registry/registry-styles\";\n\ntype Config = {\n  style: Style[\"name\"];\n  theme: BaseColor[\"name\"];\n  radius: number;\n};\n\nconst configAtom = atomWithStorage<Config>(\"config\", {\n  style: \"default\",\n  theme: \"zinc\",\n  radius: 0.5,\n});\n\nexport function useConfig() {\n  return useAtom(configAtom);\n}\n",
+      "type": "registry:lib"
+    }
+  ]
+}

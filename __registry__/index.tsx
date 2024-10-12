@@ -5,5 +5,49 @@ import * as React from "react"
 
 export const Index: Record<string, any> = {
   "default": {
+    "use-config": {
+      name: "use-config",
+      type: "registry:lib",
+      registryDependencies: undefined,
+      files: ["registry/default/lib/use-config.ts"],
+      component: React.lazy(() => import("@/registry/default/lib/use-config.ts")),
+      source: "",
+      category: "undefined",
+      subcategory: "undefined",
+      chunks: []
+    },
+    "use-mounted": {
+      name: "use-mounted",
+      type: "registry:lib",
+      registryDependencies: undefined,
+      files: ["registry/default/lib/use-mounted.ts"],
+      component: React.lazy(() => import("@/registry/default/lib/use-mounted.ts")),
+      source: "",
+      category: "undefined",
+      subcategory: "undefined",
+      chunks: []
+    },
+    "index.d": {
+      name: "index.d",
+      type: "registry:types",
+      registryDependencies: undefined,
+      files: ["registry/default/types/index.d.ts"],
+      component: React.lazy(() => import("@/registry/default/types/index.d.ts")),
+      source: "",
+      category: "undefined",
+      subcategory: "undefined",
+      chunks: []
+    },
+    "unist": {
+      name: "unist",
+      type: "registry:types",
+      registryDependencies: undefined,
+      files: ["registry/default/types/unist.ts"],
+      component: React.lazy(() => import("@/registry/default/types/unist.ts")),
+      source: "",
+      category: "undefined",
+      subcategory: "undefined",
+      chunks: []
+    },
   },
 }

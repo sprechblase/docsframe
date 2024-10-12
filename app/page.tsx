@@ -43,7 +43,7 @@ export default function Home() {
               )}
             >
               <AnimatedShinyText className="inline-flex items-center justify-center text-sm px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
-                <span>✨ Introducing Docuframe</span>
+                <span>✨ Introducing Docsframe</span>
                 <ChevronRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
               </AnimatedShinyText>
             </div>
@@ -81,14 +81,13 @@ export default function Home() {
         className="relative mx-auto mt-24 max-w-[80rem] px-6 text-center md:px-8"
       >
         <BlurFade delay={0.1 * 5} inView>
-          <div className="relative select-none flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background md:shadow-2xl">
+          <div className="relative select-none flex h-[536px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background md:shadow-2xl">
             <Image
-              src="/placeholder.svg"
-              height={500}
-              width={800}
+              src="/preview.png"
+              height={536}
+              width={1200}
               alt="Picture of the author"
             />
-            TO BE REPLACED WITH PREVIEW VIDEO
             <BorderBeam
               size={250}
               duration={12}
@@ -109,7 +108,7 @@ export default function Home() {
             </a>
             . The source code is available on{" "}
             <a
-              href="https://github.com/skredev/docuframe"
+              href="https://github.com/skredev/docsframe"
               target="_blank"
               rel="noreferrer"
               className="underline underline-offset-4"

@@ -30,7 +30,7 @@ export function Navbar() {
           <Link href="/" className="relative mr-6 flex items-center space-x-2">
             <Icons.favicon className={cn("size-6", color)} />
             <span className="hidden font-bold md:inline-block">
-              Docuframe
+              Docsframe
             </span>
             <Badge variant="outline">Beta</Badge>
           </Link>
@@ -66,7 +66,7 @@ export function Navbar() {
           </div>
           <nav className="flex items-center gap-1">
             <Link
-              href="https://github.com/skredev/docuframe"
+              href="https://github.com/skredev/docsframe"
               target="_blank"
               rel="noreferrer"
             >

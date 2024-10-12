@@ -1,11 +1,11 @@
-# Contributing to Docuframe
+# Contributing to Docsframe
 
 Thanks for contributing! We appreciate any support and look forward to your contributions.
 
 ## Getting Started
 
 1. **Fork this repository to your own GitHub account.**  
-   Click [here](https://github.com/skredev/docuframe/fork) to fork the repository.
+   Click [here](https://github.com/skredev/docsframe/fork) to fork the repository.
    
 2. **Create a new branch for your changes. Use a descriptive name, such as `feature/feature-name` or `fix/fix-name`.**
 
@@ -24,6 +24,6 @@ Thanks for contributing! We appreciate any support and look forward to your cont
 
 ## Ask for Help
 
-For any help or questions, please open a new [GitHub issue](https://github.com/skredev/docuframe/issues/new/choose).
+For any help or questions, please open a new [GitHub issue](https://github.com/skredev/docsframe/issues/new/choose).
 
 Thank you for your contributions!
