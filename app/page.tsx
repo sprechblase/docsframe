@@ -1,101 +1,125 @@
+"use client";
+
+import AnimatedShinyText from "@/components/ui/animated-shiny-text";
+import { cn } from "@/lib/utils";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+import BlurFade from "@/components/ui/blur-fade";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import Particles from "@/components/ui/particles";
+import { BorderBeam } from "@/components/ui/border-beam";
 import Image from "next/image";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const router = useRouter();
+  const { theme } = useTheme();
+  const [color, setColor] = useState("#ffffff");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+  useEffect(() => {
+    setColor(theme === "dark" ? "#ffffff" : "#000000");
+  }, [theme]);
+
+  return (
+    <main className="mx-auto flex-1">
+      <section
+        id="hero"
+        className="relative mx-auto mt-20 max-w-[80rem] px-6 text-center md:px-8"
+      >
+        <Particles
+          className="absolute inset-0"
+          quantity={100}
+          ease={80}
+          color={color}
+          refresh
+        />
+        <BlurFade delay={0.1} yOffset={-6} inView>
+          <div className="z-10 h-12 flex items-center justify-center">
+            <div
+              onClick={() => router.push("/docs/components")}
+              className={cn(
+                "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
+              )}
+            >
+              <AnimatedShinyText className="inline-flex items-center justify-center text-sm px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+                <span>✨ Introducing Docuframe</span>
+                <ChevronRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+              </AnimatedShinyText>
+            </div>
+          </div>
+        </BlurFade>
+        <BlurFade delay={0.1 * 2} yOffset={-6} inView>
+          <h1 className="font-semibold text-6xl md:text-7xl lg:text-8xl bg-gradient-to-r from-foreground to-zinc-500 text-transparent bg-clip-text p-2">
+            The easiest way to build
+            <br className="block" />
+            your documentation
+          </h1>
+        </BlurFade>
+        <BlurFade delay={0.1 * 3} yOffset={-6} inView>
+          <p className="mt-6 text-lg tracking-tight text-zinc-400 md:text-xl">
+            Beautifully designed components built with Tailwind CSS and React.
+            <br className="block" />
+            Customizable. Open Source.
+          </p>
+        </BlurFade>
+        <BlurFade delay={0.1 * 4} yOffset={-6} inView>
+          <div className="group mt-12">
+            <Button
+              onClick={() => router.push("/docs")}
+              className={buttonVariants({ variant: "default" })}
+            >
+              <ChevronLeft className="size-4 transition-transform group-hover:-translate-x-1" />
+              <span>Get Started</span>
+            </Button>
+          </div>
+        </BlurFade>
+      </section>
+
+      <section
+        id="preview"
+        className="relative mx-auto mt-24 max-w-[80rem] px-6 text-center md:px-8"
+      >
+        <BlurFade delay={0.1 * 5} inView>
+          <div className="relative select-none flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background md:shadow-2xl">
             <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/placeholder.svg"
+              height={500}
+              width={800}
+              alt="Picture of the author"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            TO BE REPLACED WITH PREVIEW VIDEO
+            <BorderBeam
+              size={250}
+              duration={12}
+              delay={9}
+              colorFrom={color}
+              colorTo={color}
+            />
+          </div>
+          <p className="pl-2 py-10 text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
+            Built by{" "}
+            <a
+              href="https://twitter.com/skredev"
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-4"
+            >
+              skredev
+            </a>
+            . The source code is available on{" "}
+            <a
+              href="https://github.com/skredev/docuframe"
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-4"
+            >
+              GitHub
+            </a>
+            .
+          </p>
+        </BlurFade>
+      </section>
+    </main>
   );
 }
