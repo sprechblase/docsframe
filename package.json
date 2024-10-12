@@ -47,7 +47,7 @@
     "cmdk": "^1.0.0",
     "date-fns": "^2.30.0",
     "embla-carousel-react": "^8.3.0",
-    "framer-motion": "^11.3.31",
+    "framer-motion": "^11.11.8",
     "input-otp": "^1.2.4",
     "jotai": "^2.10.0",
     "lodash.template": "^4.5.0",
