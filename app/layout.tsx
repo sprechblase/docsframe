@@ -17,7 +17,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Docsframe — Docsmentation framework",
+    default: "Docsframe — Documentation framework",
     template: "%s — Docsframe",
   },
   description: "The simple documentation framework with shadcn/ui",
