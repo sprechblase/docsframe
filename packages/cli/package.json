@@ -1,0 +1,24 @@
+{
+  "name": "@chosera/docsframe-cli",
+  "version": "0.0.1",
+  "description": "As simple as a NextJS documentation framework can get",
+  "keywords": [
+    "docsframe",
+    "documentation"
+  ],
+  "homepage": "https://docsframe.work",
+  "bugs": {
+    "url": "https://github.com/skredev/docsframe/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skredev/docsframe.git",
+    "directory": "packages/cli"
+  },
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "skredev",
+  "license": "MIT"
+}
