@@ -21,8 +21,10 @@
     "src"
   ],
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
+    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
+    "release": "pnpm build && pnpm publish --access public"
   },
   "main": "./dist/index.ts",
   "author": "skredev",
@@ -32,6 +34,7 @@
   },
   "dependencies": {
     "commander": "^12.1.0",
+    "tsc": "^2.0.4",
     "tsup": "^8.3.0"
   }
 }
