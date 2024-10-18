@@ -19,7 +19,7 @@ Docsframe
 
 ## Documentation
 
-Visit our [documentation](https://docsframe.work/docs) to learn more about Docuframe
+Visit our [documentation](https://docsframe.work/docs) to learn more about Docsframe
 
 ## Reporting Issues
 
