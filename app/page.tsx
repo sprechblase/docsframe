@@ -18,7 +18,7 @@ export default function Home() {
   const [color, setColor] = useState("#ffffff");
 
   useEffect(() => {
-    setColor(theme === "dark" ? "#ffffff" : "#000000");
+    setColor(theme === "dark" ? "#ffffff" : "#030303");
   }, [theme]);
 
   return (
@@ -81,12 +81,12 @@ export default function Home() {
         className="relative mx-auto mt-24 max-w-[80rem] px-6 text-center md:px-8"
       >
         <BlurFade delay={0.1 * 5} inView>
-          <div className="relative select-none flex h-[536px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background md:shadow-2xl">
+          <div className="relative select-none flex h-[624px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background md:shadow-2xl">
             <Image
-              src="/preview.png"
+              src={"/preview_" + (color === "#030303" ? "light" : "dark") + ".png"}
               height={536}
               width={1200}
-              alt="Picture of the author"
+              alt="Preview picture"
             />
             <BorderBeam
               size={250}
