@@ -4,7 +4,6 @@ import * as React from "react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 
-import { mainConfig } from "@/config/main";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -44,21 +43,15 @@ export function MobileNav() {
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
           <div className="flex flex-col space-y-3">
-            {mainConfig.mainNav?.map(
-              (item) =>
-                item.href && (
-                  <MobileLink
-                    key={item.href}
-                    href={item.href}
-                    onOpenChange={setOpen}
-                  >
-                    {item.title}
-                  </MobileLink>
-                ),
-            )}
+            <MobileLink href="/docs" onOpenChange={setOpen}>
+              Docs
+            </MobileLink>
+            <MobileLink href="/docs/components" onOpenChange={setOpen}>
+              Components
+            </MobileLink>
           </div>
           <div className="flex flex-col space-y-2">
-{/*             {docsConfig.sidebarNav.map((item, index) => (
+            {/*             {docsConfig.sidebarNav.map((item, index) => (
               <div key={index} className="flex flex-col space-y-3 pt-6">
                 <h4 className="font-medium">{item.title}</h4>
                 {item.items?.map((item) =>

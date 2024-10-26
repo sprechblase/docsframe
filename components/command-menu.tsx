@@ -6,7 +6,6 @@ import { type DialogProps } from "@radix-ui/react-dialog";
 import { Circle, CircleArrowRight } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { mainConfig } from "@/config/main";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -54,7 +53,7 @@ export function CommandMenu({ ...props }: DialogProps) {
       <Button
         variant="outline"
         className={cn(
-          "relative h-8 w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-64",
+          "relative h-8 w-full justify-start rounded-[0.5rem] bg-muted/50 text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-64"
         )}
         onClick={() => setOpen(true)}
         {...props}
@@ -69,22 +68,26 @@ export function CommandMenu({ ...props }: DialogProps) {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Links">
-            {mainConfig.mainNav
-              .filter((navitem) => !navitem.external)
-              .map((navItem) => (
-                <CommandItem
-                  key={navItem.href}
-                  value={navItem.title}
-                  onSelect={() => {
-                    runCommand(() => router.push(navItem.href as string));
-                  }}
-                >
-                  <CircleArrowRight className="mr-2 size-3" />
-                  {navItem.title}
-                </CommandItem>
-              ))}
+            <CommandItem
+              value="Docs"
+              onSelect={() => {
+                runCommand(() => router.push("/docs"));
+              }}
+            >
+              <CircleArrowRight className="mr-2 size-3" />
+              Docs
+            </CommandItem>
+            <CommandItem
+              value="Components"
+              onSelect={() => {
+                runCommand(() => router.push("/docs/components"));
+              }}
+            >
+              <CircleArrowRight className="mr-2 size-3" />
+              Components
+            </CommandItem>
           </CommandGroup>
-{/*           {docsConfig.sidebarNav.map((group) => (
+          {/*           {docsConfig.sidebarNav.map((group) => (
             <CommandGroup key={group.title} heading={group.title}>
               {group.items?.map((navItem) => (
                 <CommandItem
