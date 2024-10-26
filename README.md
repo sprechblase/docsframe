@@ -11,7 +11,7 @@ Docsframe
 
 </div>
 
-![hero](https://github.com/skredev/docsframe/blob/main/public/preview.png)
+![hero](https://github.com/skredev/docsframe/blob/main/public/preview_light.png)
 
 ### Shoutout to these awesome projects
 
