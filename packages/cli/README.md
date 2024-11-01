@@ -1,11 +1,16 @@
-# Docsframe CLI
+<h1 align="center">
+Docsframe
+</h1>
 
-This package implements a CLI for initializing Docsframe to your project.
+<div align="center">
+    <a href="https://www.npmjs.com/package/docsframe"><img src="https://img.shields.io/npm/v/docsframe?maxAge=3600" alt="npm version" /></a>
+    <a href="https://www.npmjs.com/package/docsframe"><img src="https://img.shields.io/npm/dt/docsframe?maxAge=3600" alt="npm downloads" /></a>
+</div>
+
+<br>
+
+Docsframe is one of the easiest ways to skip the hard work of creating documentation for your new project.
 
 ## Documentation
 
-Check out our [Documentation](https://docsframe.work/docs/cli) to learn more.
-
-## License
-
-Licensed under the [MIT license](https://github.com/skredev/docsframe/blob/main/LICENSE).
+Visit our [documentation](https://docsframe.work/docs) to learn more about Docsframe

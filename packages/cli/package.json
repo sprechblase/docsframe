@@ -1,40 +1,25 @@
 {
-  "name": "@chosera/docsframe-cli",
+  "name": "docsframe",
   "version": "0.0.1",
-  "description": "As simple as a NextJS documentation framework can get",
-  "keywords": [
-    "chosera",
-    "docsframe",
-    "documentation",
-    "shadcn-ui"
-  ],
-  "homepage": "https://docsframe.work",
-  "bugs": {
-    "url": "https://github.com/skredev/docsframe/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/skredev/docsframe.git",
-    "directory": "packages/cli"
-  },
-  "files": [
-    "src"
-  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "typecheck": "tsc --noEmit",
-    "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
-    "release": "pnpm build && pnpm publish --access public"
+    "build": "tsup"
   },
-  "main": "./dist/index.ts",
-  "author": "skredev",
+  "keywords": [
+    "components",
+    "ui",
+    "tailwind",
+    "shadcn",
+    "documentation",
+    "docs"
+  ],
+  "author": "skre",
   "license": "MIT",
+  "description": "A simple documentation framework with shadcn/ui",
   "devDependencies": {
+    "tsup": "^8.3.5",
     "typescript": "^5.6.3"
-  },
-  "dependencies": {
-    "commander": "^12.1.0",
-    "tsc": "^2.0.4",
-    "tsup": "^8.3.0"
   }
 }
