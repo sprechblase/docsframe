@@ -2,11 +2,18 @@
   "name": "docsframe",
   "version": "0.0.1",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "scripts": {
-    "build": "tsup"
+  "module": "./dist/index.js",
+  "bin": "./dist/index.js",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skredev/docsframe",
+    "directory": "packages/cli"
   },
+  "homepage": "https://docsframe.work",
   "keywords": [
     "components",
     "ui",
@@ -18,8 +25,21 @@
   "author": "skre",
   "license": "MIT",
   "description": "A simple documentation framework with shadcn/ui",
+  "scripts": {
+    "lint": "tsc --noEmit",
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "deploy:package": "npm publish"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "fs-extra": "^11.1.1",
+    "gradient-string": "^2.0.2"
+  },
   "devDependencies": {
-    "tsup": "^8.3.5",
-    "typescript": "^5.6.3"
+    "@types/node": "^20.11.6",
+    "@types/fs-extra": "^11.0.4",
+    "typescript": "^5.3.3",
+    "tsup": "^8.0.1"
   }
 }
