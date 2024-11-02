@@ -42,11 +42,6 @@ const devDependencies = [
   "unist-util-visit",
 ];
 
-const dependencies = {
-  dependencies: baseDependencies,
-  devDependencies: ["@types/node", "typescript"],
-};
-
 export function installDeps({
   manager,
   dir,
