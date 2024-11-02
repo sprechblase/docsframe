@@ -8,6 +8,8 @@ import { intro, text, select, password, confirm, outro } from "@clack/prompts";
 import path from "node:path";
 import { installDeps } from "./functions/installDeps";
 
+await intro("It is advisable to only initialize in newly created Next.js projects")
+
 const dir = path.resolve(
   process.cwd(),
   (await text({
