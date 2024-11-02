@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 console.clear();
 
-import type { ModuleType, PackageManager } from "./types";
+import type { PackageManager } from "./types";
 
 import { intro, text, select, password, confirm, outro } from "@clack/prompts";
 
@@ -27,21 +27,5 @@ const manager = (await select({
     { label: "yarn", value: "yarn" },
   ],
 })) as PackageManager;
-
-const type = (await select({
-  message: "Select a module type:",
-  options: [
-    {
-      label: "CommonJS",
-      value: "cjs",
-      hint: `require & exports`,
-    },
-    {
-      label: "ES Modules",
-      value: "esm",
-      hint: `import & export`,
-    },
-  ],
-})) as ModuleType;
 
 await installDeps({ manager, dir, stdio: "inherit" });
