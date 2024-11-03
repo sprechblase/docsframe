@@ -7,6 +7,8 @@ export async function Contribute({ doc }: { doc: Doc }) {
   const docsframeJson = await fs.readFile(process.cwd() + "/docsframe.json", "utf8");
   const docsframeData = JSON.parse(docsframeJson);
 
+  if(!docsframeData.contribution) return;
+
   const contributeLinks = [
     {
       text: "Edit this page",
