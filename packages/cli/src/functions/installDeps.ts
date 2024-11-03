@@ -47,9 +47,6 @@ export function installDeps({
   dir,
   stdio = "pipe",
 }: InstallDepsProps) {
-  const depsCommand = `${manager} add ${baseDependencies.join(" ")}`;
+  const depsCommand = `${manager} add ${baseDependencies.join(" ")} -D ${devDependencies.join(" ")} --silent`;
   execSync(depsCommand, { cwd: dir, stdio });
-
-  const devDepsCommand = `${manager} add -D ${devDependencies.join(" ")}`;
-  execSync(devDepsCommand, { cwd: dir, stdio });
 }

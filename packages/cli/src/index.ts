@@ -3,7 +3,15 @@ console.clear();
 
 import type { PackageManager } from "./types";
 
-import { intro, text, select, password, confirm, outro } from "@clack/prompts";
+import {
+  intro,
+  text,
+  select,
+  password,
+  confirm,
+  outro,
+  spinner,
+} from "@clack/prompts";
 
 import path from "node:path";
 import { installDeps } from "./functions/installDeps";
@@ -49,6 +57,14 @@ if (githubRepo) {
   })) as string;
 }
 
+const s = spinner();
+s.start("Installing dependencies via " + manager);
+
 await installDeps({ manager, dir, stdio: "inherit" });
+
+s.stop("Installed via " + manager);
+
 await copyTemplates({ dir });
 await setup({ contributionOwner, contributionRepo, dir });
+
+outro("You're all set, thank you for choosing Docsframe!");
