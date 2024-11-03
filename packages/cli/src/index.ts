@@ -8,6 +8,7 @@ import { intro, text, select, password, confirm, outro } from "@clack/prompts";
 import path from "node:path";
 import { installDeps } from "./functions/installDeps";
 import { copyTemplates } from "./functions/copyTemplate";
+import { setup } from "./functions/setup";
 
 const dir = path.resolve(
   process.cwd(),
@@ -31,14 +32,17 @@ const githubRepo = await confirm({
   message: "Does your project have a GitHub Repo?",
 });
 
+let contributionOwner = "";
+let contributionRepo = "";
+
 if (githubRepo) {
-  const contributionOwner = (await text({
+  contributionOwner = (await text({
     message: "Enter your repository owners GitHub username:",
     placeholder: "Leave blank if you are not using a GitHub Repo",
     defaultValue: "",
   })) as string;
 
-  const contributionRepo = (await text({
+  contributionRepo = (await text({
     message: "Enter your GitHub repository name:",
     placeholder: "Leave blank if you are not using a GitHub Repo",
     defaultValue: "",
@@ -47,3 +51,4 @@ if (githubRepo) {
 
 await installDeps({ manager, dir, stdio: "inherit" });
 await copyTemplates({ dir });
+await setup({ contributionOwner, contributionRepo, dir });
