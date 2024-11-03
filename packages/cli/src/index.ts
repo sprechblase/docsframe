@@ -11,6 +11,7 @@ import {
   confirm,
   outro,
   spinner,
+  log,
 } from "@clack/prompts";
 
 import path from "node:path";
@@ -58,13 +59,19 @@ if (githubRepo) {
 }
 
 const s = spinner();
-s.start("Installing dependencies via " + manager);
 
-await installDeps({ manager, dir, stdio: "inherit" });
-
-s.stop("Installed via " + manager);
+try {
+  s.start("Installing dependencies via " + manager);
+  await installDeps({ manager, dir, stdio: "inherit" });
+} catch (error) {
+  log.error("🛑 Error while installind dependencies.");
+  log.info(error as string);
+  process.exit(1);
+} finally {
+  s.stop("Installed via " + manager);
+}
 
 await copyTemplates({ dir });
 await setup({ contributionOwner, contributionRepo, dir });
 
-outro("You're all set, thank you for choosing Docsframe!");
+outro("You're all set, thank you for choosing Docsframe! 👋 Goodbye");
