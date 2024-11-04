@@ -1,7 +1,7 @@
 {
   "name": "docsframe",
   "version": "0.1.0",
-  "description": "A simple documentation framework with shadcn/ui",
+  "description": "The easiest documentation framework for your Next.js app",
   "private": true,
   "scripts": {
     "dev": "next dev",
