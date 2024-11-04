@@ -1,15 +1,6 @@
-/** @type {import('next').NextConfig} */
+import { withContentCollections } from "@content-collections/next";
+  /** @type {import('next').NextConfig} */
 
-const nextConfig = {
-    async redirects() {
-      return [
-        {
-          source: "/r/:name",
-          destination: "/r/styles/default/:name.json",
-          permanent: true,
-        },
-      ];
-    },
-  };
+const nextConfig = {};
 
-export default nextConfig;
+export default withContentCollections(nextConfig);
