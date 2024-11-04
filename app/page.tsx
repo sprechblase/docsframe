@@ -39,7 +39,7 @@ export default function Home() {
             <div
               onClick={() => router.push("/docs/components")}
               className={cn(
-                "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
+                "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800"
               )}
             >
               <AnimatedShinyText className="inline-flex items-center justify-center text-sm px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
@@ -80,10 +80,10 @@ export default function Home() {
         id="preview"
         className="relative mx-auto mt-24 max-w-[80rem] px-6 text-center md:px-8"
       >
-        <BlurFade delay={0.1 * 5} inView>
-          <div className="relative select-none flex h-[624px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background md:shadow-2xl">
+        <BlurFade delay={0.5} inView>
+          <div className="relative select-none flex h-[536px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background md:shadow-2xl">
             <Image
-              src={"/preview_" + (color === "#030303" ? "light" : "dark") + ".png"}
+              src={`/preview_${color === "#030303" ? "light" : "dark"}.png`}
               height={536}
               width={1200}
               alt="Preview picture"
@@ -96,7 +96,7 @@ export default function Home() {
               colorTo={color}
             />
           </div>
-          <p className="pl-2 py-10 text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
+          <p className="pl-2 py-10 text-center text-sm leading-loose text-muted-foreground md:text-left">
             Built by{" "}
             <a
               href="https://twitter.com/skredev"

@@ -42,7 +42,7 @@ export function Navbar() {
                   : "text-foreground/60"
               )}
             >
-              <span className="shrink-0">Docs</span>
+              <span className="shrink-0">Documentation</span>
             </Link>
             <Link
               href="/docs/components"
