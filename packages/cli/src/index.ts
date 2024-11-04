@@ -5,19 +5,22 @@ import type { PackageManager } from "./types";
 
 import {
   intro,
-  text,
-  select,
-  password,
-  confirm,
   outro,
+  confirm,
+  select,
   spinner,
+  text,
   log,
 } from "@clack/prompts";
+import { setTimeout as sleep } from "node:timers/promises";
+import color from "picocolors";
 
 import path from "node:path";
 import { installDeps } from "./functions/installDeps";
 import { copyTemplates } from "./functions/copyTemplate";
 import { setup } from "./functions/setup";
+
+intro(color.inverse(" Docsframe "));
 
 const dir = path.resolve(
   process.cwd(),
@@ -59,19 +62,21 @@ if (githubRepo) {
 }
 
 const s = spinner();
+s.start("Setting up Docsframe. This may take some time.");
+await sleep(100);
 
 try {
-  s.start("Installing dependencies via " + manager);
   await installDeps({ manager, dir, stdio: "inherit" });
+  await copyTemplates({ dir });
+  await setup({ contributionOwner, contributionRepo, dir });
 } catch (error) {
-  log.error("🛑 Error while installind dependencies.");
+  log.error("Error while setting up Docsframe.");
   log.info(error as string);
   process.exit(1);
 } finally {
   s.stop("Installed via " + manager);
 }
 
-await copyTemplates({ dir });
-await setup({ contributionOwner, contributionRepo, dir });
+outro("You're all set, thank you for choosing Docsframe!");
 
-outro("You're all set, thank you for choosing Docsframe! 👋 Goodbye");
+await sleep(1000);
