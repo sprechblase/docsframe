@@ -8,7 +8,7 @@ import { createHighlighter } from "shiki";
 import { visit } from "unist-util-visit";
 
 const prettyCodeOptions: Options = {
-  theme: "vitesse-black",
+  theme: "github-dark",
   getHighlighter: (options) =>
     createHighlighter({
       ...options,
