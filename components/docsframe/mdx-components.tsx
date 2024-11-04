@@ -1,5 +1,6 @@
 import { useMDXComponent } from "@content-collections/mdx/react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 
@@ -22,6 +23,7 @@ const CustomLink = (props: any) => {
 };
 
 const components = {
+  Image,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
       className={cn(
@@ -129,6 +131,38 @@ const components = {
       {...props}
     />
   ),
+  Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
+    <h3
+      className={cn(
+        "font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight",
+        className
+      )}
+      {...props}
+    />
+  ),
+  Steps: ({ ...props }) => (
+    <div
+      className="[&>h3]:step steps mb-12 ml-4 border-l pl-8 [counter-reset:step]"
+      {...props}
+    />
+  ),
+  pre: ({
+    className,
+    __rawString__,
+    ...props
+  }: React.HTMLAttributes<HTMLPreElement> & {
+    __rawString__?: string;
+  }) => {
+    return (
+      <pre
+        className={cn(
+          "mb-4 mt-6 max-h-[650px] overflow-x-auto rounded-lg border bg-zinc-950 py-4 dark:bg-zinc-900",
+          className
+        )}
+        {...props}
+      />
+    );
+  },
 };
 
 interface MDXProps {
