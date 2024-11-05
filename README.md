@@ -24,7 +24,7 @@ Docsframe
 
 ## About the Project
 
-Docsframe is one of the easiest ways to quickly build project documentation without the hassle of starting from scratch. Built with TypeScript and Next.js, it provides customizable, responsive components tailored for beautiful documentation.
+Docsframe is one of the easiest ways to quickly build project documentation without the hassle of starting from scratch. Built with TypeScript and Next.js, it provides customizable, responsive components tailored for beautiful documentation. Customizable. Open Source.
 
 ### Shoutout to these awesome projects
 

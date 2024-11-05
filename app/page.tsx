@@ -58,7 +58,7 @@ export default function Home() {
         </BlurFade>
         <BlurFade delay={0.1 * 3} yOffset={-6} inView>
           <p className="mt-6 text-lg tracking-tight text-zinc-400 md:text-xl">
-            Beautifully designed components built with Tailwind CSS and React.
+            Beautifully designed framework built with Tailwind CSS and React.
             <br className="block" />
             Customizable. Open Source.
           </p>
@@ -81,7 +81,7 @@ export default function Home() {
         className="relative mx-auto mt-24 max-w-[80rem] px-6 text-center md:px-8"
       >
         <BlurFade delay={0.5} inView>
-          <div className="relative select-none flex h-[536px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background md:shadow-2xl">
+          <div className="relative select-none flex h-[536px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background pointer-events-none md:shadow-2xl">
             <Image
               src={`/preview_${color === "#030303" ? "light" : "dark"}.png`}
               height={536}

@@ -11,7 +11,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { MobileNav } from "./mobile-nav";
 import { CommandMenu } from "./command-menu";
-import { GithubIcon } from "lucide-react";
+import { GithubIcon, TwitterIcon } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -63,7 +63,7 @@ export function Navbar() {
           <div className="w-full flex-1 md:w-auto md:flex-none">
             <CommandMenu />
           </div>
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-2">
             <Link
               href="https://github.com/skredev/docsframe"
               target="_blank"
@@ -79,6 +79,23 @@ export function Navbar() {
               >
                 <GithubIcon className="size-4" />
                 <span className="sr-only">GitHub</span>
+              </div>
+            </Link>
+            <Link
+              href="https://x.com/docsframe"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div
+                className={cn(
+                  buttonVariants({
+                    variant: "ghost",
+                  }),
+                  "w-9 px-0"
+                )}
+              >
+                <TwitterIcon className="size-4" />
+                <span className="sr-only">Twitter / X</span>
               </div>
             </Link>
             <ThemeToggle />
