@@ -19,73 +19,83 @@ import path from "node:path";
 import { installDeps } from "../functions/installDeps";
 import { copyTemplates } from "../functions/copyTemplate";
 import { setup } from "../functions/setup";
-import { Command } from "commander"
+import { Command } from "commander";
+import fs from "fs-extra";
 
 export const init = new Command()
   .name("init")
   .description("initialize your project and install dependencies")
   .action(async () => {
+    intro(color.inverse(" Docsframe "));
 
+    const dir = path.resolve(
+      process.cwd(),
+      (await text({
+        message: "Enter a project directory:",
+        placeholder: "Leave blank for current directory",
+        defaultValue: ".",
+        validate: (value) => {
+          value = path.resolve(process.cwd(), value);
 
-intro(color.inverse(" Docsframe "));
+          const appPath = path.join(value, "app");
+          const appExists = fs.existsSync(appPath);
 
-const dir = path.resolve(
-  process.cwd(),
-  (await text({
-    message: "Enter a project directory:",
-    placeholder: "Leave blank for current directory",
-    defaultValue: ".",
-  })) as string
-);
+          if (!appExists) {
+            return "Warning: There is no Next.js application with an app router";
+          }
 
-const manager = (await select({
-  message: "Select a package manager:",
-  options: [
-    { label: "npm", value: "npm" },
-    { label: "pnpm", value: "pnpm" },
-    { label: "yarn", value: "yarn" },
-  ],
-})) as PackageManager;
+          return undefined;
+        },
+      })) as string
+    );
 
-const githubRepo = await confirm({
-  message: "Does your project have a GitHub Repo?",
-});
+    const manager = (await select({
+      message: "Select a package manager:",
+      options: [
+        { label: "npm", value: "npm" },
+        { label: "pnpm", value: "pnpm" },
+        { label: "yarn", value: "yarn" },
+      ],
+    })) as PackageManager;
 
-let contributionOwner = "";
-let contributionRepo = "";
+    const githubRepo = await confirm({
+      message: "Does your project have a GitHub Repo?",
+    });
 
-if (githubRepo) {
-  contributionOwner = (await text({
-    message: "Enter your repository owners GitHub username:",
-    placeholder: "Leave blank if you are not using a GitHub Repo",
-    defaultValue: "",
-  })) as string;
+    let contributionOwner = "";
+    let contributionRepo = "";
 
-  contributionRepo = (await text({
-    message: "Enter your GitHub repository name:",
-    placeholder: "Leave blank if you are not using a GitHub Repo",
-    defaultValue: "",
-  })) as string;
-}
+    if (githubRepo) {
+      contributionOwner = (await text({
+        message: "Enter your repository owners GitHub username:",
+        placeholder: "Leave blank if you are not using a GitHub Repo",
+        defaultValue: "",
+      })) as string;
 
-const s = spinner();
-s.start("Setting up Docsframe. This may take some time.");
-await sleep(500);
+      contributionRepo = (await text({
+        message: "Enter your GitHub repository name:",
+        placeholder: "Leave blank if you are not using a GitHub Repo",
+        defaultValue: "",
+      })) as string;
+    }
 
-try {
-  await installDeps({ manager, dir, stdio: "inherit" });
-  await copyTemplates({ dir });
-  await setup({ contributionOwner, contributionRepo, dir });
-} catch (error) {
-  log.error("Error while setting up Docsframe.");
-  log.info(error as string);
-  process.exit(1);
-} finally {
-  s.stop("Installed via " + manager);
-}
+    const s = spinner();
+    s.start("Setting up Docsframe. This may take some time.");
+    await sleep(500);
 
-outro("You're all set, thank you for choosing Docsframe!");
+    try {
+      await installDeps({ manager, dir, stdio: "inherit" });
+      await copyTemplates({ dir });
+      await setup({ contributionOwner, contributionRepo, dir });
+    } catch (error) {
+      log.error("Error while setting up Docsframe.");
+      log.info(error as string);
+      process.exit(1);
+    } finally {
+      s.stop("Installed via " + manager);
+    }
 
-await sleep(1000);
+    outro("You're all set, thank you for choosing Docsframe!");
 
-})
+    await sleep(1000);
+  });
