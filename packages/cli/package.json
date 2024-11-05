@@ -1,7 +1,7 @@
 {
   "name": "docsframe",
-  "description": "A simple documentation framework with shadcn/ui",
-  "version": "0.0.2",
+  "description": "The easiest documentation framework for your Next.js app",
+  "version": "0.0.3",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "bin": "./dist/index.js",
@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.7.0",
+    "commander": "^12.1.0",
     "fs-extra": "^11.1.1"
   },
   "devDependencies": {
