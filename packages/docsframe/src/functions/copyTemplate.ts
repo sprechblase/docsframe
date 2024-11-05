@@ -5,7 +5,7 @@ interface CopyTemplatesProps {
   dir: string;
 }
 
-const template = path.join(__dirname, "..", "template");
+const template = path.join(__dirname, "..", "templates", "init");
 
 export async function copyTemplates({ dir }: CopyTemplatesProps) {
   await fs.copy(template, dir);
