@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { init } from "./commands/init"
+import { add } from "./commands/add"
 import { Command } from "commander"
 
 import packageJson from "../package.json"
@@ -17,7 +18,7 @@ async function main() {
       "display the version number"
     )
 
-  program.addCommand(init)
+  program.addCommand(init).addCommand(add)
 
   program.parse()
 }
