@@ -70,7 +70,7 @@ if (githubRepo) {
 
 const s = spinner();
 s.start("Setting up Docsframe. This may take some time.");
-await sleep(100);
+await sleep(500);
 
 try {
   await installDeps({ manager, dir, stdio: "inherit" });

@@ -1,5 +1,6 @@
 import fs from "fs-extra";
 import path from "node:path";
+import { setTimeout as sleep } from "node:timers/promises";
 
 interface SetupProps {
   contributionOwner: string;
@@ -12,8 +13,11 @@ export async function setup(props: SetupProps) {
   try {
     await Promise.all([
       createDocsframeJson(props),
+      await sleep(100),
       updateTsconfig(dir),
+      await sleep(100),
       updateNextConfig(dir),
+      await sleep(100),
       appendGlobalStyles(dir),
     ]);
   } catch (error) {
