@@ -7,6 +7,13 @@ interface InstallDepsProps {
   stdio: IOType;
 }
 
+interface InstallComponentDepsProps {
+  manager: PackageManager;
+  dir: string;
+  deps: string[];
+  stdio: IOType;
+}
+
 const baseDependencies = [
   "@radix-ui/react-icons",
   "@radix-ui/react-scroll-area",
@@ -48,5 +55,15 @@ export function installDeps({
   stdio = "pipe",
 }: InstallDepsProps) {
   const depsCommand = `${manager} add ${baseDependencies.join(" ")} -D ${devDependencies.join(" ")} --silent`;
+  execSync(depsCommand, { cwd: dir, stdio });
+}
+
+export function installComponentDeps({
+  manager,
+  dir,
+  deps,
+  stdio = "pipe",
+}: InstallComponentDepsProps) {
+  const depsCommand = `${manager} add ${deps.join(" ")} --silent`;
   execSync(depsCommand, { cwd: dir, stdio });
 }
