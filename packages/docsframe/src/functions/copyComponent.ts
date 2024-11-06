@@ -4,20 +4,19 @@ import path from "node:path";
 interface CopyComponentProps {
   dir: string;
   component: string;
-  extension?: string;
 }
 
 export async function copyComponent({
   dir,
-  component,
-  extension = "tsx",
+  component
 }: CopyComponentProps) {
   component = path.join(
     __dirname,
     "..",
     "templates",
     "components",
-    `${component}.${extension}`
+    "docsframe",
+    `${component}.tsx`
   );
   await fs.copyFile(component, dir);
 }
