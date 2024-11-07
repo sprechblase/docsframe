@@ -36,10 +36,15 @@ export const init = new Command()
         validate: (value) => {
           value = path.resolve(process.cwd(), value);
 
-          const appPath = path.join(value, "app");
-          const appExists = fs.existsSync(appPath);
+          const appExists = fs.existsSync(path.join(value, "app"));
+          const srcExists = fs.existsSync(path.join(value, "src"));
 
           if (!appExists) {
+            if (srcExists) {
+              return `Warning: The ${color.cyan(
+                `src`
+              )} folder is currently unsupported, use only without src and with App Router.`;
+            }
             return "Warning: There is no Next.js application with an app router";
           }
 
@@ -84,7 +89,17 @@ export const init = new Command()
 
     try {
       await installDeps({ manager, dir, stdio: "inherit" });
+      s.message(
+        "Setting up Docsframe. This may take some time. Adding needed files."
+      );
+
+      await sleep(150);
       await copyTemplates({ dir });
+      s.message(
+        "Setting up Docsframe. This may take some time. Setting up configurations."
+      );
+
+      await sleep(150);
       await setup({ contributionOwner, contributionRepo, dir });
     } catch (error) {
       log.error("Error while setting up Docsframe.");

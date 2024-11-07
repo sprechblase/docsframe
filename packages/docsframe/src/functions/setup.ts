@@ -20,9 +20,7 @@ export async function setup(props: SetupProps) {
       await sleep(100),
       appendGlobalStyles(dir),
     ]);
-  } catch (error) {
-    console.error("An error occurred during the setup process:", error);
-  }
+  } catch (error) {}
 }
 
 async function createDocsframeJson({
@@ -51,17 +49,19 @@ async function createDocsframeJson({
 }
 
 async function updateTsconfig(dir: string) {
-  const tsconfigJsonPath = path.join(dir, "tsconfig.json");
-  const tsconfigJson = await fs.readJSON(tsconfigJsonPath);
+  let configJsonPath = path.join(dir, "tsconfig.json");
+  if (!(await fs.pathExists(configJsonPath)))
+    configJsonPath = path.join(dir, "jsconfig.json");
+  const configJson = await fs.readJSON(configJsonPath);
 
-  tsconfigJson.compilerOptions = tsconfigJson.compilerOptions || {};
-  tsconfigJson.compilerOptions.paths = tsconfigJson.compilerOptions.paths || {};
+  configJson.compilerOptions = configJson.compilerOptions || {};
+  configJson.compilerOptions.paths = configJson.compilerOptions.paths || {};
 
-  tsconfigJson.compilerOptions.paths["content-collections"] = [
+  configJson.compilerOptions.paths["content-collections"] = [
     "./.content-collections/generated",
   ];
 
-  await fs.writeJSON(tsconfigJsonPath, tsconfigJson, { spaces: 2 });
+  await fs.writeJSON(configJsonPath, configJson, { spaces: 2 });
 }
 
 async function updateNextConfig(dir: string) {
