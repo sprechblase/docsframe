@@ -89,6 +89,34 @@ export const add = new Command()
               dir: destinationPath,
               component: componentName,
             });
+
+            let mdxComponents = await fs.readFile(
+              path.join(path.dirname(destinationPath), "mdx-components.tsx"),
+              "utf8"
+            );
+
+            const { exports } = componentData;
+            const importStatement = `import { ${exports.join(", ")} } from "./${componentName}";\n`;
+            const componentEntries = exports.join(",\n ");
+
+            if (!mdxComponents.includes(importStatement)) {
+              mdxComponents = importStatement + mdxComponents;
+
+              const componentsObjectPattern =
+                /const components = {([\s\S]*?)};/;
+              mdxComponents = mdxComponents.replace(
+                componentsObjectPattern,
+                (match, insideComponents) => {
+                  return `const components = {${insideComponents} ${componentEntries},\n};`;
+                }
+              );
+
+              await fs.writeFile(
+                path.join(path.dirname(destinationPath), "mdx-components.tsx"),
+                mdxComponents,
+                "utf8"
+              );
+            }
           } catch (error) {
             console.log(error);
           }

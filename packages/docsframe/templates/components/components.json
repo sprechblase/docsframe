@@ -1,6 +1,7 @@
 [
   {
     "name": "linkedcards",
-    "dependencies": ["react"]
+    "dependencies": ["react"],
+    "exports": ["LinkedCards", "LinkedCardItem"]
   }
 ]
