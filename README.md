@@ -17,7 +17,11 @@ Docsframe
     <a href="https://www.npmjs.com/package/docsframe"><img src="https://img.shields.io/npm/dt/docsframe?maxAge=3600" alt="npm downloads" /></a>
 </div>
 
+<br>
+
 ![hero](https://github.com/skredev/docsframe/blob/main/public/preview_light.png)
+
+<br>
 
 > [!WARNING]
 > 🚧 This project is in beta and should be used with caution.
