@@ -1,6 +1,5 @@
 import fs from "fs-extra";
 import path from "node:path";
-import { setTimeout as sleep } from "node:timers/promises";
 
 interface SetupProps {
   contributionOwner: string;
@@ -8,28 +7,68 @@ interface SetupProps {
   dir: string;
 }
 
-export async function setup(props: SetupProps) {
-  const { dir } = props;
+interface DocsframeConfig {
+  contribution: {
+    owner: string;
+    repo: string;
+  };
+  docsConfig: {
+    title: string;
+    items: Array<{
+      title: string;
+      href: string;
+    }>;
+  };
+}
+
+export async function setup({
+  contributionOwner,
+  contributionRepo,
+  dir,
+}: SetupProps) {
   try {
+    // Validate input parameters
+    if (!contributionOwner || !contributionRepo || !dir) {
+      throw new Error("Missing required setup parameters");
+    }
+
+    // Ensure directory exists
+    await fs.ensureDir(dir);
+
+    // Run setup tasks concurrently with proper error handling
     await Promise.all([
-      createDocsframeJson(props),
-      await sleep(100),
-      updateTsconfig(dir),
-      await sleep(100),
-      updateNextConfig(dir),
-      await sleep(100),
-      appendGlobalStyles(dir),
+      createDocsframeJson({ contributionOwner, contributionRepo, dir }).catch(
+        (error) => console.error("Failed to create docsframe.json:", error)
+      ),
+
+      updateTsconfig(dir).catch((error) =>
+        console.error("Failed to update tsconfig:", error)
+      ),
+
+      updateNextConfig(dir).catch((error) =>
+        console.error("Failed to update next.config:", error)
+      ),
+
+      appendGlobalStyles(dir).catch((error) =>
+        console.error("Failed to update global styles:", error)
+      ),
     ]);
-  } catch (error) {}
+
+    console.log("Setup completed successfully");
+  } catch (error) {
+    console.error("Setup failed:", error);
+    throw error; // Re-throw to allow caller to handle the error
+  }
 }
 
 async function createDocsframeJson({
   contributionOwner,
   contributionRepo,
   dir,
-}: SetupProps) {
+}: SetupProps): Promise<void> {
   const docsframeJsonPath = path.join(dir, "docsframe.json");
-  const docsframeJson = {
+
+  const docsframeJson: DocsframeConfig = {
     contribution: {
       owner: contributionOwner,
       repo: contributionRepo,
@@ -45,50 +84,75 @@ async function createDocsframeJson({
     },
   };
 
-  await fs.writeFile(docsframeJsonPath, JSON.stringify(docsframeJson, null, 2));
+  await fs.writeFile(
+    docsframeJsonPath,
+    JSON.stringify(docsframeJson, null, 2),
+    "utf8"
+  );
 }
 
-async function updateTsconfig(dir: string) {
-  let configJsonPath = path.join(dir, "tsconfig.json");
-  if (!(await fs.pathExists(configJsonPath)))
-    configJsonPath = path.join(dir, "jsconfig.json");
-  const configJson = await fs.readJSON(configJsonPath);
+async function updateTsconfig(dir: string): Promise<void> {
+  const tsconfigPath = path.join(dir, "tsconfig.json");
+  const jsconfigPath = path.join(dir, "jsconfig.json");
 
-  configJson.compilerOptions = configJson.compilerOptions || {};
-  configJson.compilerOptions.paths = configJson.compilerOptions.paths || {};
+  // Determine which config file exists
+  const configPath = (await fs.pathExists(tsconfigPath))
+    ? tsconfigPath
+    : (await fs.pathExists(jsconfigPath))
+      ? jsconfigPath
+      : null;
 
-  configJson.compilerOptions.paths["content-collections"] = [
+  if (!configPath) {
+    throw new Error("Neither tsconfig.json nor jsconfig.json found");
+  }
+
+  const config = await fs.readJSON(configPath);
+
+  // Ensure nested objects exist
+  config.compilerOptions = config.compilerOptions || {};
+  config.compilerOptions.paths = config.compilerOptions.paths || {};
+
+  // Add content-collections path
+  config.compilerOptions.paths["content-collections"] = [
     "./.content-collections/generated",
   ];
 
-  await fs.writeJSON(configJsonPath, configJson, { spaces: 2 });
+  await fs.writeJSON(configPath, config, { spaces: 2 });
 }
 
-async function updateNextConfig(dir: string) {
+async function updateNextConfig(dir: string): Promise<void> {
   const nextConfigPath = path.join(dir, "next.config.mjs");
-  let nextConfigContent = await fs.readFile(nextConfigPath, "utf8");
 
-  if (!nextConfigContent.includes("withContentCollections")) {
-    nextConfigContent = `
-import { withContentCollections } from "@content-collections/next";
-${nextConfigContent}
-    `.trim();
+  if (!(await fs.pathExists(nextConfigPath))) {
+    throw new Error("next.config.mjs not found");
   }
 
-  if (!nextConfigContent.includes("export default withContentCollections(")) {
-    nextConfigContent = nextConfigContent.replace(
-      /export default nextConfig;/,
-      "export default withContentCollections(nextConfig);"
+  let content = await fs.readFile(nextConfigPath, "utf8");
+
+  // Add imports if needed
+  if (!content.includes("withContentCollections")) {
+    content = `import { withContentCollections } from "@content-collections/next";\n${content}`;
+  }
+
+  // Update export if needed
+  if (!content.includes("export default withContentCollections(")) {
+    content = content.replace(
+      /export default (\w+);?/,
+      "export default withContentCollections($1);"
     );
   }
 
-  await fs.writeFile(nextConfigPath, nextConfigContent);
+  await fs.writeFile(nextConfigPath, content, "utf8");
 }
 
-async function appendGlobalStyles(dir: string) {
+async function appendGlobalStyles(dir: string): Promise<void> {
   const globalsCssPath = path.join(dir, "app", "globals.css");
-  const additionalCss = `
 
+  if (!(await fs.pathExists(globalsCssPath))) {
+    throw new Error("globals.css not found");
+  }
+
+  const additionalStyles = `
 @layer utilities {
   .step {
     counter-increment: step;
@@ -107,5 +171,10 @@ async function appendGlobalStyles(dir: string) {
   }
 }`;
 
-  await fs.appendFile(globalsCssPath, additionalCss, "utf8");
+  const existingContent = await fs.readFile(globalsCssPath, "utf8");
+
+  // Only append if styles don't already exist
+  if (!existingContent.includes(".step {")) {
+    await fs.appendFile(globalsCssPath, `\n${additionalStyles}`, "utf8");
+  }
 }
