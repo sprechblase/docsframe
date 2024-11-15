@@ -2,10 +2,10 @@ import { Command } from "commander";
 import { z } from "zod";
 import path from "node:path";
 import fs from "fs-extra";
-import { copyComponent } from "../functions/copyComponent";
+import { copyManager } from "../functions/copy-manager";
 import { confirm, spinner, log, outro } from "@clack/prompts";
 import color from "picocolors";
-import { installComponentDeps } from "../functions/installDeps";
+import { packageManager } from "../functions/package-manager";
 
 export const addOptionsSchema = z.object({
   components: z.array(z.string()).optional(),
@@ -85,7 +85,7 @@ export const add = new Command()
           }
 
           try {
-            await copyComponent({
+            await copyManager.component({
               dir: destinationPath,
               component: componentName,
             });
@@ -125,11 +125,10 @@ export const add = new Command()
           await s.message("Installing component dependencies.");
 
           if (componentData.dependencies.length > 0) {
-            await installComponentDeps({
-              manager: "npm",
+            await packageManager.installComponent({
               dir: cwd,
-              deps: componentData.dependencies,
               stdio: "inherit",
+              deps: componentData.dependencies,
             });
           }
 

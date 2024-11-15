@@ -1,7 +1,5 @@
 console.clear();
 
-import type { PackageManager } from "../types";
-
 import {
   intro,
   outro,
@@ -15,8 +13,8 @@ import { setTimeout as sleep } from "node:timers/promises";
 import color from "picocolors";
 
 import path from "node:path";
-import { installDeps } from "../functions/installDeps";
-import { copyTemplates } from "../functions/copyTemplate";
+import { packageManager } from "../functions/package-manager";
+import { copyManager } from "../functions/copy-manager";
 import { setup } from "../functions/setup";
 import { Command } from "commander";
 import fs from "fs-extra";
@@ -53,15 +51,6 @@ export const init = new Command()
       })) as string
     );
 
-    const manager = (await select({
-      message: "Select a package manager:",
-      options: [
-        { label: "npm", value: "npm" },
-        { label: "pnpm", value: "pnpm" },
-        { label: "yarn", value: "yarn" },
-      ],
-    })) as PackageManager;
-
     const githubRepo = await confirm({
       message: "Does your project have a GitHub Repo?",
     });
@@ -88,13 +77,13 @@ export const init = new Command()
     await sleep(500);
 
     try {
-      await installDeps({ manager, dir, stdio: "inherit" });
+      await packageManager.install({ dir, stdio: "inherit" });
       s.message(
         "Setting up Docsframe. This may take some time. Adding needed files."
       );
 
       await sleep(150);
-      await copyTemplates({ dir });
+      await copyManager.template({ dir });
       s.message(
         "Setting up Docsframe. This may take some time. Setting up configurations."
       );
@@ -106,7 +95,7 @@ export const init = new Command()
       log.info(error as string);
       process.exit(1);
     } finally {
-      s.stop("Installed via " + manager);
+      s.stop("Dependencies installed");
     }
 
     outro("You're all set, thank you for choosing Docsframe!");
