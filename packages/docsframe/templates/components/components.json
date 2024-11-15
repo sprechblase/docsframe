@@ -1,7 +1,7 @@
 [
   {
-    "name": "linkedcards",
-    "dependencies": ["react"],
-    "exports": ["LinkedCards", "LinkedCardItem"]
+    "name": "callout",
+    "dependencies": [""],
+    "exports": ["Callout"]
   }
 ]

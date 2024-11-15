@@ -3,7 +3,7 @@ import { z } from "zod";
 import path from "node:path";
 import fs from "fs-extra";
 import { copyManager } from "../functions/copy-manager";
-import { confirm, spinner, log, outro } from "@clack/prompts";
+import { confirm, spinner, log, outro, multiselect } from "@clack/prompts";
 import color from "picocolors";
 import { packageManager } from "../functions/package-manager";
 
@@ -40,7 +40,7 @@ export const add = new Command()
       }
 
       if (!options.components || options.components.length === 0) {
-        log.error("No component specified.");
+        log.error("No component specified."); // MULTISELECT
         return;
       }
 
