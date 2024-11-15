@@ -9,6 +9,10 @@
       {
         "title": "Introduction",
         "href": "/docs"
+      },
+      {
+        "title": "Getting Started",
+        "href": "/docs/getting-started"
       }
     ]
   }
