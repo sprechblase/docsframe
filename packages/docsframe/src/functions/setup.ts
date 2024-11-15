@@ -27,15 +27,12 @@ export async function setup({
   dir,
 }: SetupProps) {
   try {
-    // Validate input parameters
-    if (!contributionOwner || !contributionRepo || !dir) {
+    if (!dir) {
       throw new Error("Missing required setup parameters");
     }
 
-    // Ensure directory exists
     await fs.ensureDir(dir);
 
-    // Run setup tasks concurrently with proper error handling
     await Promise.all([
       createDocsframeJson({ contributionOwner, contributionRepo, dir }).catch(
         (error) => console.error("Failed to create docsframe.json:", error)
@@ -57,7 +54,7 @@ export async function setup({
     console.log("Setup completed successfully");
   } catch (error) {
     console.error("Setup failed:", error);
-    throw error; // Re-throw to allow caller to handle the error
+    throw error;
   }
 }
 
@@ -95,7 +92,6 @@ async function updateTsconfig(dir: string): Promise<void> {
   const tsconfigPath = path.join(dir, "tsconfig.json");
   const jsconfigPath = path.join(dir, "jsconfig.json");
 
-  // Determine which config file exists
   const configPath = (await fs.pathExists(tsconfigPath))
     ? tsconfigPath
     : (await fs.pathExists(jsconfigPath))
@@ -108,11 +104,9 @@ async function updateTsconfig(dir: string): Promise<void> {
 
   const config = await fs.readJSON(configPath);
 
-  // Ensure nested objects exist
   config.compilerOptions = config.compilerOptions || {};
   config.compilerOptions.paths = config.compilerOptions.paths || {};
 
-  // Add content-collections path
   config.compilerOptions.paths["content-collections"] = [
     "./.content-collections/generated",
   ];
@@ -129,12 +123,10 @@ async function updateNextConfig(dir: string): Promise<void> {
 
   let content = await fs.readFile(nextConfigPath, "utf8");
 
-  // Add imports if needed
   if (!content.includes("withContentCollections")) {
     content = `import { withContentCollections } from "@content-collections/next";\n${content}`;
   }
 
-  // Update export if needed
   if (!content.includes("export default withContentCollections(")) {
     content = content.replace(
       /export default (\w+);?/,
@@ -173,7 +165,6 @@ async function appendGlobalStyles(dir: string): Promise<void> {
 
   const existingContent = await fs.readFile(globalsCssPath, "utf8");
 
-  // Only append if styles don't already exist
   if (!existingContent.includes(".step {")) {
     await fs.appendFile(globalsCssPath, `\n${additionalStyles}`, "utf8");
   }
