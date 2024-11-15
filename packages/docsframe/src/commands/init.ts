@@ -1,23 +1,58 @@
 console.clear();
 
-import {
-  intro,
-  outro,
-  confirm,
-  select,
-  spinner,
-  text,
-  log,
-} from "@clack/prompts";
+import { intro, outro, confirm, text, spinner, log } from "@clack/prompts";
 import { setTimeout as sleep } from "node:timers/promises";
-import color from "picocolors";
-
 import path from "node:path";
+import fs from "fs-extra";
+import color from "picocolors";
+import { Command } from "commander";
+
 import { packageManager } from "../functions/package-manager";
 import { copyManager } from "../functions/copy-manager";
 import { setup } from "../functions/setup";
-import { Command } from "commander";
-import fs from "fs-extra";
+
+const validateDirectory = (dir: string): string | undefined => {
+  const resolvedDir = path.resolve(process.cwd(), dir);
+
+  const appExists = fs.existsSync(path.join(resolvedDir, "app"));
+  const srcExists = fs.existsSync(path.join(resolvedDir, "src"));
+
+  if (!appExists) {
+    if (srcExists) {
+      return `Warning: The ${color.cyan(
+        "src"
+      )} folder is unsupported. Use the App Router structure instead.`;
+    }
+    return "Warning: No Next.js application with an App Router found.";
+  }
+
+  return undefined;
+};
+
+const getGithubRepoDetails = async (): Promise<{
+  owner: string;
+  repo: string;
+}> => {
+  const githubRepo = await confirm({
+    message: "Does your project have a GitHub Repo?",
+  });
+
+  if (!githubRepo) return { owner: "", repo: "" };
+
+  const owner = (await text({
+    message: "Enter the repository owner's GitHub username:",
+    placeholder: "Leave blank if not using a GitHub Repo",
+    defaultValue: "",
+  })) as string;
+
+  const repo = (await text({
+    message: "Enter your GitHub repository name:",
+    placeholder: "Leave blank if not using a GitHub Repo",
+    defaultValue: "",
+  })) as string;
+
+  return { owner, repo };
+};
 
 export const init = new Command()
   .name("init")
@@ -29,48 +64,14 @@ export const init = new Command()
       process.cwd(),
       (await text({
         message: "Enter a project directory:",
-        placeholder: "Leave blank for current directory",
+        placeholder: "Leave blank for the current directory",
         defaultValue: ".",
-        validate: (value) => {
-          value = path.resolve(process.cwd(), value);
-
-          const appExists = fs.existsSync(path.join(value, "app"));
-          const srcExists = fs.existsSync(path.join(value, "src"));
-
-          if (!appExists) {
-            if (srcExists) {
-              return `Warning: The ${color.cyan(
-                `src`
-              )} folder is currently unsupported, use only without src and with App Router.`;
-            }
-            return "Warning: There is no Next.js application with an app router";
-          }
-
-          return undefined;
-        },
+        validate: validateDirectory,
       })) as string
     );
 
-    const githubRepo = await confirm({
-      message: "Does your project have a GitHub Repo?",
-    });
-
-    let contributionOwner = "";
-    let contributionRepo = "";
-
-    if (githubRepo) {
-      contributionOwner = (await text({
-        message: "Enter your repository owners GitHub username:",
-        placeholder: "Leave blank if you are not using a GitHub Repo",
-        defaultValue: "",
-      })) as string;
-
-      contributionRepo = (await text({
-        message: "Enter your GitHub repository name:",
-        placeholder: "Leave blank if you are not using a GitHub Repo",
-        defaultValue: "",
-      })) as string;
-    }
+    const { owner: contributionOwner, repo: contributionRepo } =
+      await getGithubRepoDetails();
 
     const s = spinner();
     s.start("Setting up Docsframe. This may take some time.");
@@ -78,26 +79,22 @@ export const init = new Command()
 
     try {
       await packageManager.install({ dir, stdio: "inherit" });
-      s.message(
-        "Setting up Docsframe. This may take some time. Adding needed files."
-      );
-
+      s.message("Adding necessary files...");
       await sleep(150);
+
       await copyManager.template({ dir });
-      s.message(
-        "Setting up Docsframe. This may take some time. Setting up configurations."
-      );
-
+      s.message("Setting up configurations...");
       await sleep(150);
+
       await setup({ contributionOwner, contributionRepo, dir });
     } catch (error) {
+      s.stop("Setup failed.");
       log.error("Error while setting up Docsframe.");
-      log.info(error as string);
+      log.info((error as Error).message || "Unknown error occurred.");
       process.exit(1);
-    } finally {
-      s.stop("Dependencies installed");
     }
 
+    s.stop("Dependencies installed.");
     outro("You're all set, thank you for choosing Docsframe!");
 
     await sleep(1000);

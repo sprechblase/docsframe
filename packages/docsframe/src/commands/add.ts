@@ -3,7 +3,7 @@ import { z } from "zod";
 import path from "node:path";
 import fs from "fs-extra";
 import { copyManager } from "../functions/copy-manager";
-import { confirm, spinner, log, outro, multiselect } from "@clack/prompts";
+import { confirm, log, outro, multiselect } from "@clack/prompts";
 import color from "picocolors";
 import { packageManager } from "../functions/package-manager";
 
@@ -91,7 +91,6 @@ export const add = new Command()
     process.cwd()
   )
   .action(async (components, opts) => {
-    const s = spinner();
     const componentsFilePath = path.join(
       __dirname,
       "..",
@@ -109,14 +108,27 @@ export const add = new Command()
         process.exit(1);
       }
 
-      if (!options.components || options.components.length === 0) {
-        log.error("No components specified.");
-        return;
-      }
-
       const componentsJson = await loadComponentsJson(componentsFilePath);
 
-      await s.start("Checking for components.");
+      if (!options.components || options.components.length === 0) {
+        const selectedComponents = (await multiselect({
+          message: "Which components would you like to add?",
+          options: componentsJson.map((comp: any) => ({
+            label: comp.name,
+            value: comp.name,
+          })),
+          required: true,
+        })) as string[];
+
+        if (!selectedComponents) {
+          log.error("No components selected.");
+          process.exit(1);
+        }
+
+        options.components = selectedComponents;
+      }
+
+      await log.step("Checking for components.");
       const missingComponents: string[] = [];
 
       for (const componentName of options.components) {
@@ -135,8 +147,6 @@ export const add = new Command()
           missingComponents.push(componentName);
         }
       }
-
-      await s.stop();
 
       if (missingComponents.length > 0) {
         log.warn(
