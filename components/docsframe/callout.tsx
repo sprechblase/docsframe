@@ -1,17 +1,19 @@
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { cn } from "@/lib/utils";
 
 interface CalloutProps {
-  icon?: string;
-  title?: string;
   children?: React.ReactNode;
+  className: React.HTMLAttributes<HTMLHeadingElement>;
 }
 
-export function Callout({ title, children, icon, ...props }: CalloutProps) {
+export function Callout({ children, className }: CalloutProps) {
   return (
-    <Alert {...props}>
-      {icon && <span className="mr-4 text-2xl">{icon}</span>}
-      {title && <AlertTitle>{title}</AlertTitle>}
-      <AlertDescription>{children}</AlertDescription>
-    </Alert>
+    <div
+      className={cn(
+        "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground bg-background text-foreground",
+        className
+      )}
+    >
+      <div className="text-sm [&_p]:leading-relaxed">{children}</div>
+    </div>
   );
 }
