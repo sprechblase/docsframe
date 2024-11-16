@@ -13,6 +13,14 @@ const addOptionsSchema = z.object({
   cwd: z.string(),
 });
 
+const componentDataSchema = z.object({
+  name: z.string(),
+  exports: z.array(z.string()),
+  dependencies: z.array(z.string()),
+});
+
+type ComponentData = z.infer<typeof componentDataSchema>;
+
 async function loadComponentsJson(filePath: string) {
   if (!fs.existsSync(filePath)) {
     throw new Error(`components.json file not found at ${filePath}.`);
@@ -20,12 +28,49 @@ async function loadComponentsJson(filePath: string) {
   return await fs.readJson(filePath);
 }
 
+async function updateMdxComponents(
+  mdxFilePath: string,
+  componentName: string,
+  exports: string[]
+): Promise<void> {
+  try {
+    let mdxComponents = await fs.readFile(mdxFilePath, "utf8");
+    const importStatement = `import { ${exports.join(", ")} } from "./${componentName}";\n`;
+
+    if (mdxComponents.includes(`from "./${componentName}"`)) {
+      log.info(
+        `Component ${componentName} is already imported in mdx-components.tsx`
+      );
+      return;
+    }
+
+    mdxComponents = importStatement + mdxComponents;
+
+    const componentsObjectPattern = /const components = {([\s\S]*?)};/;
+    if (!componentsObjectPattern.test(mdxComponents)) {
+      throw new Error("Invalid mdx-components.tsx format");
+    }
+
+    mdxComponents = mdxComponents.replace(
+      componentsObjectPattern,
+      (match, insideComponents) =>
+        `const components = {${insideComponents} ${exports.join(",\n ")},\n};`
+    );
+
+    await fs.writeFile(mdxFilePath, mdxComponents, "utf8");
+  } catch (error) {
+    throw new Error(
+      `Failed to update MDX components: ${(error as Error).message}`
+    );
+  }
+}
+
 async function handleComponentAddition(
   componentName: string,
-  componentData: any,
+  componentData: ComponentData,
   cwd: string,
   overwrite: boolean
-) {
+): Promise<boolean> {
   const destinationPath = path.join(
     cwd,
     "components",
@@ -33,50 +78,56 @@ async function handleComponentAddition(
     `${componentName}.tsx`
   );
 
-  if (!overwrite && (await fs.pathExists(destinationPath))) {
-    const shouldOverwrite = await confirm({
-      message: `The file ${color.cyan(
-        `${destinationPath}`
-      )} already exists. Would you like to overwrite?`,
-    });
-    if (!shouldOverwrite) return;
-  }
+  try {
+    await fs.ensureDir(path.dirname(destinationPath));
 
-  await copyManager.component({
-    dir: destinationPath,
-    component: componentName,
-  });
-
-  const mdxFilePath = path.join(
-    path.dirname(destinationPath),
-    "mdx-components.tsx"
-  );
-  const { exports } = componentData;
-
-  if (await fs.pathExists(mdxFilePath)) {
-    let mdxComponents = await fs.readFile(mdxFilePath, "utf8");
-    const importStatement = `import { ${exports.join(", ")} } from "./${componentName}";\n`;
-
-    if (!mdxComponents.includes(importStatement)) {
-      mdxComponents = importStatement + mdxComponents;
-
-      const componentsObjectPattern = /const components = {([\s\S]*?)};/;
-      mdxComponents = mdxComponents.replace(
-        componentsObjectPattern,
-        (match, insideComponents) =>
-          `const components = {${insideComponents} ${exports.join(",\n ")},\n};`
-      );
-
-      await fs.writeFile(mdxFilePath, mdxComponents, "utf8");
+    if (!overwrite && (await fs.pathExists(destinationPath))) {
+      const shouldOverwrite = await confirm({
+        message: `The file ${color.cyan(destinationPath)} already exists. Would you like to overwrite?`,
+      });
+      if (!shouldOverwrite) return false;
     }
-  }
 
-  if (componentData.dependencies.length > 0) {
-    await packageManager.installComponent({
-      dir: cwd,
-      stdio: "inherit",
-      deps: componentData.dependencies,
+    await copyManager.component({
+      dir: destinationPath,
+      component: componentName,
     });
+
+    const mdxFilePath = path.join(
+      path.dirname(destinationPath),
+      "mdx-components.tsx"
+    );
+
+    if (await fs.pathExists(mdxFilePath)) {
+      await updateMdxComponents(
+        mdxFilePath,
+        componentName,
+        componentData.exports
+      );
+    } else {
+      log.warn(`MDX components file not found at ${mdxFilePath}`);
+    }
+
+    if (componentData.dependencies.length > 0) {
+      try {
+        await packageManager.installComponent({
+          dir: cwd,
+          stdio: "inherit",
+          deps: componentData.dependencies,
+        });
+      } catch (error) {
+        log.warn(
+          `Failed to install dependencies for ${componentName}: ${(error as Error).message}`
+        );
+      }
+    }
+
+    return true;
+  } catch (error) {
+    log.error(
+      `Failed to add component ${componentName}: ${(error as Error).message}`
+    );
+    return false;
   }
 }
 
@@ -90,6 +141,7 @@ export const add = new Command()
     "the working directory. defaults to the current directory.",
     process.cwd()
   )
+  .option("--skip-deps", "skip dependency installation", false)
   .action(async (components, opts) => {
     const componentsFilePath = path.join(
       __dirname,
@@ -129,34 +181,53 @@ export const add = new Command()
       }
 
       await log.step("Checking for components.");
-      const missingComponents: string[] = [];
+      const successfulComponents: string[] = [];
+      const failedComponents: string[] = [];
+      const skippedComponents: string[] = [];
 
       for (const componentName of options.components) {
         const componentData = componentsJson.find(
-          (comp: any) => comp.name === componentName
+          (comp: ComponentData) => comp.name === componentName
         );
 
-        if (componentData) {
-          await handleComponentAddition(
-            componentName,
-            componentData,
-            cwd,
-            options.overwrite
-          );
+        if (!componentData) {
+          skippedComponents.push(componentName);
+          continue;
+        }
+
+        const success = await handleComponentAddition(
+          componentName,
+          componentData,
+          cwd,
+          options.overwrite
+        );
+
+        if (success) {
+          successfulComponents.push(componentName);
         } else {
-          missingComponents.push(componentName);
+          failedComponents.push(componentName);
         }
       }
 
-      if (missingComponents.length > 0) {
+      if (successfulComponents.length > 0) {
+        log.success(`Successfully added: ${successfulComponents.join(", ")}`);
+      }
+      if (failedComponents.length > 0) {
+        log.error(`Failed to add: ${failedComponents.join(", ")}`);
+      }
+      if (skippedComponents.length > 0) {
         log.warn(
-          `The following components do not exist: ${missingComponents.join(", ")}`
+          `Skipped non-existent components: ${skippedComponents.join(", ")}`
         );
       }
 
-      await outro("You're all set.");
-    } catch (error: any) {
-      log.error(error.message || "An unexpected error occurred.");
+      await outro(
+        successfulComponents.length > 0
+          ? "Components added successfully."
+          : "No components were added."
+      );
+    } catch (error) {
+      log.error(`Installation failed: ${(error as Error).message}`);
       process.exit(1);
     }
   });
