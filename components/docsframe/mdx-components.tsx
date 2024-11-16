@@ -1,9 +1,9 @@
+import { Callout } from "./callout";
 import { useMDXComponent } from "@content-collections/mdx/react";
 import Link from "next/link";
 import Image from "next/image";
 
 import { cn } from "@/lib/utils";
-import { Callout } from "./callout";
 
 const CustomLink = (props: any) => {
   const href = props.href;
@@ -24,7 +24,6 @@ const CustomLink = (props: any) => {
 };
 
 const components = {
-  Callout,
   Image,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
@@ -165,6 +164,7 @@ const components = {
       />
     );
   },
+  Callout,
 };
 
 interface MDXProps {
