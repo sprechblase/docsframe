@@ -6,7 +6,6 @@ Thanks for contributing! We appreciate any support and look forward to your cont
 
 1. **Fork this repository to your own GitHub account.**  
    Click [here](https://github.com/skredev/docsframe/fork) to fork the repository.
-   
 2. **Create a new branch for your changes. Use a descriptive name, such as `feature/feature-name` or `fix/fix-name`.**
 
 3. **Using Prettier is necessary.**
@@ -21,6 +20,12 @@ Thanks for contributing! We appreciate any support and look forward to your cont
 1. **Go to the original repository and create a new pull request.**
 
 2. **Provide a descriptive title and detailed description of your changes in the pull request.**
+
+## Docsframe MDX Component Development
+
+To add a new MDX component, please refer to the [Docsframe Experimental](https://github.com/skredev/docsframe-experimental) project.
+Once your pull request has been approved, your component will also be added to the Docsframe project.
+Please note that the same [Contributing Guidelines](https://github.com/skredev/docsframe-experimental/blob/main/CONTRIBUTING.md) must be followed.
 
 ## Ask for Help
 
