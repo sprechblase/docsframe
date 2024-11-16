@@ -14,6 +14,10 @@ import { setup } from "../functions/setup";
 const validateDirectory = (dir: string): string | undefined => {
   const resolvedDir = path.resolve(process.cwd(), dir);
 
+  if (!fs.existsSync(resolvedDir)) {
+    return `Directory ${color.cyan(resolvedDir)} does not exist`;
+  }
+
   const appExists = fs.existsSync(path.join(resolvedDir, "app"));
   const srcExists = fs.existsSync(path.join(resolvedDir, "src"));
 
@@ -39,17 +43,43 @@ const getGithubRepoDetails = async (): Promise<{
 
   if (!githubRepo) return { owner: "", repo: "" };
 
-  const owner = (await text({
-    message: "Enter the repository owner's GitHub username:",
-    placeholder: "Leave blank if not using a GitHub Repo",
-    defaultValue: "",
-  })) as string;
+  let owner = "";
+  let repo = "";
 
-  const repo = (await text({
-    message: "Enter your GitHub repository name:",
-    placeholder: "Leave blank if not using a GitHub Repo",
-    defaultValue: "",
-  })) as string;
+  let retries = 3;
+  while (retries > 0) {
+    owner = (await text({
+      message: "Enter the repository owner's GitHub username:",
+      placeholder: "Leave blank if not using a GitHub Repo",
+      defaultValue: "",
+      validate: (value) => {
+        if (value.includes(" ")) return "GitHub username cannot contain spaces";
+        return;
+      },
+    })) as string;
+
+    repo = (await text({
+      message: "Enter your GitHub repository name:",
+      placeholder: "Leave blank if not using a GitHub Repo",
+      defaultValue: "",
+      validate: (value) => {
+        if (value.includes(" ")) return "Repository name cannot contain spaces";
+        return;
+      },
+    })) as string;
+
+    if (owner || repo) {
+      if (!owner || !repo) {
+        retries--;
+        log.warn(
+          "Both owner and repo must be provided if using GitHub. Please try again."
+        );
+        continue;
+      }
+      break;
+    }
+    break;
+  }
 
   return { owner, repo };
 };
