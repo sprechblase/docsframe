@@ -1,7 +1,7 @@
 {
   "name": "docsframe",
   "description": "The easiest documentation framework for your Next.js app",
-  "version": "0.0.7",
+  "version": "0.1.1",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "bin": "./dist/index.js",
@@ -13,18 +13,31 @@
     "docs",
     "shadcn",
     "tailwind",
-    "ui"
+    "ui",
+    "nextjs",
+    "mdx",
+    "react",
+    "typescript"
   ],
   "files": [
     "dist",
-    "templates"
+    "templates",
+    "README.md",
+    "LICENSE"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/skredev/docsframe",
     "directory": "packages/cli"
   },
+  "bugs": {
+    "url": "https://github.com/skredev/docsframe/issues"
+  },
   "homepage": "https://docsframe.work",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "build": "tsup",
     "deploy:package": "npm publish",
@@ -40,7 +53,18 @@
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.11.6",
+    "prettier": "^3.0.0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
-  }
+  },
+  "peerDependencies": {
+    "next": ">=13.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "packageManager": "npm@10.0.0"
 }
