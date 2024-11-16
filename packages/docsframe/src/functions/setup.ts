@@ -1,69 +1,93 @@
 import fs from "fs-extra";
 import path from "node:path";
+import { z } from "zod";
 
-interface SetupProps {
-  contributionOwner: string;
-  contributionRepo: string;
-  dir: string;
-}
+const setupPropsSchema = z.object({
+  contributionOwner: z.string(),
+  contributionRepo: z.string(),
+  dir: z.string().min(1),
+});
 
-interface DocsframeConfig {
-  contribution: {
-    owner: string;
-    repo: string;
-  };
-  docsConfig: {
-    title: string;
-    items: Array<{
-      title: string;
-      href: string;
-    }>;
-  };
-}
+const docsframeConfigSchema = z.object({
+  contribution: z.object({
+    owner: z.string(),
+    repo: z.string(),
+  }),
+  docsConfig: z.object({
+    title: z.string(),
+    items: z.array(
+      z.object({
+        title: z.string(),
+        href: z.string(),
+      })
+    ),
+  }),
+});
 
-export async function setup({
-  contributionOwner,
-  contributionRepo,
-  dir,
-}: SetupProps) {
+type SetupProps = z.infer<typeof setupPropsSchema>;
+type DocsframeConfig = z.infer<typeof docsframeConfigSchema>;
+
+export async function setup(props: SetupProps) {
   try {
-    if (!dir) {
-      throw new Error("Missing required setup parameters");
+    const validatedProps = setupPropsSchema.parse(props);
+    const { dir } = validatedProps;
+
+    try {
+      await fs.access(dir, fs.constants.W_OK);
+    } catch {
+      throw new Error(`Directory ${dir} does not exist or is not writable`);
     }
 
     await fs.ensureDir(dir);
 
-    await Promise.all([
-      createDocsframeJson({ contributionOwner, contributionRepo, dir }).catch(
-        (error) => console.error("Failed to create docsframe.json:", error)
-      ),
-
-      updateTsconfig(dir).catch((error) =>
-        console.error("Failed to update tsconfig:", error)
-      ),
-
-      updateNextConfig(dir).catch((error) =>
-        console.error("Failed to update next.config:", error)
-      ),
-
-      appendGlobalStyles(dir).catch((error) =>
-        console.error("Failed to update global styles:", error)
-      ),
+    const results = await Promise.allSettled([
+      createDocsframeJson(validatedProps),
+      updateTsconfig(dir),
+      updateNextConfig(dir),
+      appendGlobalStyles(dir),
     ]);
 
-    console.log("Setup completed successfully");
+    const failures = results.filter(
+      (result): result is PromiseRejectedResult => result.status === "rejected"
+    );
+
+    if (failures.length > 0) {
+      console.warn("Some operations failed:");
+      failures.forEach((failure) => console.error(failure.reason));
+
+      const criticalFailures = failures.length === results.length;
+      if (criticalFailures) {
+        throw new Error("All setup operations failed");
+      }
+    }
+
+    console.log(
+      "Setup completed with",
+      results.length - failures.length,
+      "successful and",
+      failures.length,
+      "failed operations"
+    );
   } catch (error) {
     console.error("Setup failed:", error);
     throw error;
   }
 }
 
-async function createDocsframeJson({
-  contributionOwner,
-  contributionRepo,
-  dir,
-}: SetupProps): Promise<void> {
+async function createDocsframeJson(props: SetupProps): Promise<void> {
+  const { dir, contributionOwner, contributionRepo } = props;
   const docsframeJsonPath = path.join(dir, "docsframe.json");
+
+  if (await fs.pathExists(docsframeJsonPath)) {
+    const existingConfig = await fs.readJson(docsframeJsonPath);
+    try {
+      docsframeConfigSchema.parse(existingConfig);
+      console.log("Valid docsframe.json already exists, skipping creation");
+      return;
+    } catch {
+      console.log("Existing docsframe.json is invalid, creating new one");
+    }
+  }
 
   const docsframeJson: DocsframeConfig = {
     contribution: {
@@ -80,6 +104,8 @@ async function createDocsframeJson({
       ],
     },
   };
+
+  docsframeConfigSchema.parse(docsframeJson);
 
   await fs.writeFile(
     docsframeJsonPath,
@@ -102,16 +128,25 @@ async function updateTsconfig(dir: string): Promise<void> {
     throw new Error("Neither tsconfig.json nor jsconfig.json found");
   }
 
-  const config = await fs.readJSON(configPath);
+  try {
+    const config = await fs.readJson(configPath);
 
-  config.compilerOptions = config.compilerOptions || {};
-  config.compilerOptions.paths = config.compilerOptions.paths || {};
+    config.compilerOptions = config.compilerOptions || {};
+    config.compilerOptions.paths = config.compilerOptions.paths || {};
 
-  config.compilerOptions.paths["content-collections"] = [
-    "./.content-collections/generated",
-  ];
+    if (config.compilerOptions.paths["content-collections"]) {
+      console.log("content-collections path already configured, skipping");
+      return;
+    }
 
-  await fs.writeJSON(configPath, config, { spaces: 2 });
+    config.compilerOptions.paths["content-collections"] = [
+      "./.content-collections/generated",
+    ];
+
+    await fs.writeJson(configPath, config, { spaces: 2 });
+  } catch (error) {
+    throw new Error(`Failed to update ${configPath}: ${error}`);
+  }
 }
 
 async function updateNextConfig(dir: string): Promise<void> {
@@ -122,6 +157,14 @@ async function updateNextConfig(dir: string): Promise<void> {
   }
 
   let content = await fs.readFile(nextConfigPath, "utf8");
+
+  if (
+    content.includes("withContentCollections") &&
+    content.includes("export default withContentCollections(")
+  ) {
+    console.log("Next.js config already configured, skipping");
+    return;
+  }
 
   if (!content.includes("withContentCollections")) {
     content = `import { withContentCollections } from "@content-collections/next";\n${content}`;
@@ -141,7 +184,14 @@ async function appendGlobalStyles(dir: string): Promise<void> {
   const globalsCssPath = path.join(dir, "app", "globals.css");
 
   if (!(await fs.pathExists(globalsCssPath))) {
-    throw new Error("globals.css not found");
+    throw new Error("globals.css not found in app directory");
+  }
+
+  const existingContent = await fs.readFile(globalsCssPath, "utf8");
+
+  if (existingContent.includes(".step {")) {
+    console.log("Global styles already configured, skipping");
+    return;
   }
 
   const additionalStyles = `
@@ -163,9 +213,5 @@ async function appendGlobalStyles(dir: string): Promise<void> {
   }
 }`;
 
-  const existingContent = await fs.readFile(globalsCssPath, "utf8");
-
-  if (!existingContent.includes(".step {")) {
-    await fs.appendFile(globalsCssPath, `\n${additionalStyles}`, "utf8");
-  }
+  await fs.appendFile(globalsCssPath, `\n${additionalStyles}`, "utf8");
 }
