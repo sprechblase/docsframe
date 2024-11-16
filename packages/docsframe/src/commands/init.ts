@@ -71,6 +71,12 @@ const getGithubRepoDetails = async (): Promise<{
     if (owner || repo) {
       if (!owner || !repo) {
         retries--;
+        if (retries === 0) {
+          log.warn(
+            "Maximum retry attempts reached. Continuing without GitHub configuration."
+          );
+          return { owner: "", repo: "" };
+        }
         log.warn(
           "Both owner and repo must be provided if using GitHub. Please try again."
         );
