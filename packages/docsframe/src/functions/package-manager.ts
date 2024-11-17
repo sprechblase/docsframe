@@ -38,7 +38,6 @@ const dependencies: DependencyConfig = {
     "@types/react",
     "@types/react-dom",
     "mdast-util-toc",
-    "prettier",
     "rehype-pretty-code",
     "rehype-slug",
     "remark",

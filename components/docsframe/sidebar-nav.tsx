@@ -58,10 +58,8 @@ export function DocsSidebarNavItems({
               item.disabled && "cursor-not-allowed opacity-60",
               pathname === item.href
                 ? "font-medium text-foreground"
-                : "text-muted-foreground",
+                : "text-muted-foreground"
             )}
-            target={item.external ? "_blank" : ""}
-            rel={item.external ? "noreferrer" : ""}
           >
             {pathname === item.href && (
               <motion.div
@@ -83,16 +81,13 @@ export function DocsSidebarNavItems({
                 {item.label}
               </span>
             )}
-            {item.external && (
-              <ExternalLinkIcon className="relative z-10 ml-2 size-4" />
-            )}
           </Link>
         ) : (
           <span
             key={index}
             className={cn(
               "flex w-full cursor-not-allowed items-center rounded-md p-2 text-muted-foreground",
-              item.disabled && "cursor-not-allowed opacity-60",
+              item.disabled && "cursor-not-allowed opacity-60"
             )}
           >
             {item.title}
@@ -102,7 +97,7 @@ export function DocsSidebarNavItems({
               </span>
             )}
           </span>
-        ),
+        )
       )}
     </div>
   ) : null;

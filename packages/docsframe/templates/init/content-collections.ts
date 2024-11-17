@@ -114,11 +114,19 @@ const documents = defineCollection({
         },
       ],
     });
+
+    const normalizedPath = document._meta.path.replace(/\\/g, "/");
+    const pathParts = normalizedPath.split("/");
+    const filename = pathParts.pop() ?? "index";
+
     return {
       ...document,
       image: `${process.env.NEXT_PUBLIC_APP_URL}/${encodeURI(document.title)}`,
-      slug: `/${document._meta.path}`,
-      slugAsParams: document._meta.path.split("/").slice(1).join("/"),
+      slug: `/${normalizedPath}`,
+      slugAsParams:
+        filename === "index"
+          ? pathParts.slice(1).join("/")
+          : [...pathParts.slice(1), filename].join("/"),
       body: {
         raw: document.content,
         code: body,

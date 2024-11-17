@@ -60,8 +60,6 @@ export function DocsSidebarNavItems({
                 ? "font-medium text-foreground"
                 : "text-muted-foreground"
             )}
-            target={item.external ? "_blank" : ""}
-            rel={item.external ? "noreferrer" : ""}
           >
             {pathname === item.href && (
               <motion.div
@@ -82,9 +80,6 @@ export function DocsSidebarNavItems({
               <span className="relative z-10 ml-2 rounded-md bg-[#FFBD7A] px-1.5 py-0.5 text-xs leading-none text-[#000000] no-underline group-hover:no-underline">
                 {item.label}
               </span>
-            )}
-            {item.external && (
-              <ExternalLinkIcon className="relative z-10 ml-2 size-4" />
             )}
           </Link>
         ) : (

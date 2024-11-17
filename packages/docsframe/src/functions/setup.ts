@@ -14,11 +14,15 @@ const docsframeConfigSchema = z.object({
     repo: z.string(),
   }),
   docsConfig: z.object({
-    title: z.string(),
-    items: z.array(
+    categories: z.array(
       z.object({
         title: z.string(),
-        href: z.string(),
+        items: z.array(
+          z.object({
+            title: z.string(),
+            href: z.string(),
+          })
+        ),
       })
     ),
   }),
@@ -95,11 +99,15 @@ async function createDocsframeJson(props: SetupProps): Promise<void> {
       repo: contributionRepo,
     },
     docsConfig: {
-      title: "Getting Started",
-      items: [
+      categories: [
         {
-          title: "Introduction",
-          href: "/docs",
+          title: "Getting Started",
+          items: [
+            {
+              title: "Introduction",
+              href: "/docs",
+            },
+          ],
         },
       ],
     },
