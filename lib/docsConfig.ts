@@ -1,22 +1,19 @@
 import { promises as fs } from "fs";
 import path from "path";
-import { SidebarNavItem } from "@/types/index";
+import { SidebarNavItem, NavItem } from "@/types/index";
 
 export interface DocsConfig {
   sidebarNav: SidebarNavItem[];
 }
 
-interface DocsframeItem {
+interface DocsframeCategory {
   title: string;
-  href: string;
-  disabled?: boolean;
-  label?: string;
+  items: NavItem[];
 }
 
 interface DocsframeData {
   docsConfig: {
-    title: string;
-    items: DocsframeItem[];
+    categories: DocsframeCategory[];
   };
 }
 
@@ -30,19 +27,19 @@ export async function getDocsConfig(): Promise<DocsConfig> {
     throw new Error("Invalid docsframe.json: Missing 'docsConfig'");
   }
 
-  const { title, items } = docsframeData.docsConfig;
+  const { categories } = docsframeData.docsConfig;
 
-  const sidebarNav: SidebarNavItem[] = [
-    {
-      title,
-      items: items.map(({ title, href, disabled = false, label = null }) => ({
+  const sidebarNav: SidebarNavItem[] = categories.map(({ title, items }) => ({
+    title,
+    items: items.map(
+      ({ title, href, disabled = false, label = undefined }) => ({
         title,
         href,
         disabled,
         label,
-      })),
-    },
-  ];
+      })
+    ),
+  }));
 
   return { sidebarNav };
 }

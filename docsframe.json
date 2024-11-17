@@ -4,15 +4,19 @@
     "repo": "docsframe"
   },
   "docsConfig": {
-    "title": "Getting Started",
-    "items": [
-      {
-        "title": "Introduction",
-        "href": "/docs"
-      },
+    "categories": [
       {
         "title": "Getting Started",
-        "href": "/docs/getting-started"
+        "items": [
+          {
+            "title": "Introduction",
+            "href": "/docs"
+          },
+          {
+            "title": "Getting Started",
+            "href": "/docs/getting-started"
+          }
+        ]
       }
     ]
   }

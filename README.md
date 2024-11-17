@@ -1,52 +1,43 @@
-<h1 align="center">
-Docsframe
-<br>
-</h1>
-<p align="center">
-<a href="https://docsframe.work"><strong>Learn more »</strong></a>
-</p>
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-<div align="center">
-    <a href="https://github.com/skredev/docsframe/stargazers"><img src="https://img.shields.io/github/stars/skredev/docsframe?logo=github&style=flat" alt="github stars" /></a>
-    <a href="https://github.com/skredev/docsframe"><img src="https://img.shields.io/github/last-commit/skredev/docsframe/main?logo=git&logoColor=white&style=flat" alt="github last commit" /></a>
-    <a href="https://github.com/skredev/docsframe/blob/main/LICENSE"><img src="https://img.shields.io/github/license/skredev/docsframe?logoColor=white&style=flat" alt="github license" /></a>
-</div>
+## Getting Started
 
-<div align="center">
-    <a href="https://www.npmjs.com/package/docsframe"><img src="https://img.shields.io/npm/v/docsframe?maxAge=3600" alt="npm version" /></a>
-    <a href="https://www.npmjs.com/package/docsframe"><img src="https://img.shields.io/npm/dt/docsframe?maxAge=3600" alt="npm downloads" /></a>
-</div>
+First, run the development server:
 
-<br>
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-![hero](https://github.com/skredev/docsframe/blob/main/public/preview_light.png)
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-<br>
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-> [!WARNING]
-> 🚧 This project is in beta and should be used with caution.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## About the Project
+## You've added Docsframe
 
-Docsframe is one of the easiest ways to quickly build project documentation without the hassle of starting from scratch. Built with TypeScript and Next.js, it provides customizable, responsive components tailored for beautiful documentation. Customizable. Open Source.
+Thank you for adding Docsframe to your project!
+To learn more about Docsframe and how to configure it, please refer to the following resources:
 
-### Shoutout to these awesome projects
+- [Docsframe Documentation](https://docsframe.work/docs) - learn more about Docsframe
 
-- [shadcn/ui](https://ui.shadcn.com)
-- [magicui](https://magicui.design/)
+## Learn More
 
-## Documentation
+To learn more about Next.js, take a look at the following resources:
 
-Visit our [documentation](https://docsframe.work/docs) to learn more about Docsframe
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Reporting Issues
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-If you encounter any issues, please create an issue on GitHub using the provided template, which can be found on the Issues tab.
+## Deploy on Vercel
 
-We appreciate your feedback and will do our best to address the issues fast!
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## Contributing
-
-We welcome and appreciate any contributions!
-
-To get started, check out our [contribution guide](https://github.com/skredev/docsframe/blob/main/CONTRIBUTING.md).
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
