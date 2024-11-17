@@ -35,26 +35,46 @@ async function updateMdxComponents(
 ): Promise<void> {
   try {
     let mdxComponents = await fs.readFile(mdxFilePath, "utf8");
-    const importStatement = `import { ${exports.join(", ")} } from "./${componentName}";\n`;
 
-    if (mdxComponents.includes(`from "./${componentName}"`)) {
+    const importRegex = new RegExp(
+      `import\\s*{[^}]*}\\s*from\\s*['"]\\.\\/${componentName}['"]`
+    );
+    if (importRegex.test(mdxComponents)) {
       log.info(
         `Component ${componentName} is already imported in mdx-components.tsx`
       );
       return;
     }
 
-    mdxComponents = importStatement + mdxComponents;
+    const importStatement = `import { ${exports.join(", ")} } from "./${componentName}";\n`;
+    const importSection =
+      mdxComponents.match(/^import.*?\n(?:import.*?\n)*/m)?.[0] || "";
+    mdxComponents = mdxComponents.replace(
+      importSection,
+      importSection + importStatement
+    );
 
-    const componentsObjectPattern = /const components = {([\s\S]*?)};/;
-    if (!componentsObjectPattern.test(mdxComponents)) {
-      throw new Error("Invalid mdx-components.tsx format");
+    const componentsObjectPattern = /const\s+components\s*=\s*{([\s\S]*?)};/;
+    const match = mdxComponents.match(componentsObjectPattern);
+    if (!match) {
+      throw new Error(
+        "Invalid mdx-components.tsx format: components object not found"
+      );
     }
+
+    const existingIndent = match[1].match(/^\n?(\s+)/m)?.[1] || "  ";
+    const formattedExports = exports
+      .map((exp) => `${existingIndent}${exp}`)
+      .join(",\n");
 
     mdxComponents = mdxComponents.replace(
       componentsObjectPattern,
-      (match, insideComponents) =>
-        `const components = {${insideComponents} ${exports.join(",\n ")},\n};`
+      (match, insideComponents) => {
+        const hasTrailingComma = insideComponents.trim().endsWith(",");
+        return `const components = {${insideComponents.trim()}${hasTrailingComma ? "" : ","}
+${formattedExports}
+};`;
+      }
     );
 
     await fs.writeFile(mdxFilePath, mdxComponents, "utf8");
