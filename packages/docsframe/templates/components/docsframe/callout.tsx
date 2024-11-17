@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 interface CalloutProps {
   children?: React.ReactNode;
-  className: React.HTMLAttributes<HTMLHeadingElement>;
+  className?: string;
 }
 
 export function Callout({ children, className }: CalloutProps) {
