@@ -1,0 +1,59 @@
+---
+title: docsframe.json
+description: Configuration for your project.
+---
+
+The `docsframe.json` file holds configuration for your project.
+
+<Callout className="mt-3">
+
+**Note:** The `docsframe.json` file is automatically created when you run the `init` command.
+
+</Callout>
+
+See the [Getting Started](/docs/getting-started) section for more information.
+
+## contribution
+
+The `contribution` section is used to configure the contribution section in the sidebar. You can use this to link to your project's github repository.
+
+```json
+{
+  "contribution": {
+    "owner": "",
+    "repo": ""
+  }
+}
+```
+
+If you don't want to link to your project's repository, you can leave the `contribution` section empty. If you use a different Git Hosting Service you can edit the `contribute.tsx` in the `components` folder.
+
+## docsConfig
+
+The `docsConfig` section is used to configure all your documentation pages.
+
+```json
+{
+  "docsConfig": {
+    "categories": [
+      {
+        "title": "Getting Started",
+        "items": [
+          {
+            "title": "Introduction",
+            "href": "/docs"
+          },
+          {
+            "title": "Getting Started",
+            "href": "/docs/getting-started"
+          },
+          {
+            "title": "docsframe.json",
+            "href": "/docs/docsframe-json"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
