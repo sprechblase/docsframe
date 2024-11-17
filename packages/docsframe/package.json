@@ -1,7 +1,7 @@
 {
   "name": "docsframe",
   "description": "The easiest documentation framework for your Next.js app",
-  "version": "0.1.2",
+  "version": "0.1.2-beta.1",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "bin": "./dist/index.js",

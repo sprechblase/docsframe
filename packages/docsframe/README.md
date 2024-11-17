@@ -9,21 +9,34 @@ Docsframe
 
 <br>
 
-Docsframe is one of the easiest ways to skip the hard work of creating documentation for your new project. Customizable. Open Source.
+> [!WARNING]
+> 🚧 This project is in beta and should be used with caution.
+
+<br>
+
+Docsframe is one of the easiest ways to quickly build project documentation without the hassle of starting from scratch. Built with TypeScript and Next.js, it provides customizable, responsive components tailored for beautiful documentation. Customizable. Open Source.
 
 ## Usage
 
-Use the `init` command to initialize Docsframe to your project.
+### Create project
 
-The `init` command installs the dependencies and adds all the necessary code to your Next.js application.
+We recommend that you create a Next.js project using the shadcn/ui CLI
 
-```bash
-npx docsframe init
+```
+npx shadcn@latest init
 ```
 
-## Next.js app
+### Initialize Docsframe
 
-To build a Next.js application, you can use CLIs like shadcn's `npx shadcn@latest init`.
+Run the `init` command to setup Docsframe to your project:
+
+```
+npx docsframe@latest init
+```
+
+### That's it
+
+You are now ready to customize Docsframe and start building your documentation.
 
 ## Documentation
 
