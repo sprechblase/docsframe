@@ -7,5 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/public/"],
     },
+    sitemap: "https://docsframe.work/sitemap.xml",
   };
 }
