@@ -20,7 +20,46 @@ export const metadata: Metadata = {
     default: "Docsframe — Documentation framework",
     template: "%s — Docsframe",
   },
-  description: "The simple documentation framework with shadcn/ui",
+  description: "The easiest documentation framework for your Next.js app",
+  keywords: [
+    "components",
+    "documentation",
+    "docs",
+    "framework",
+    "shadcn",
+    "tailwind",
+    "ui",
+    "nextjs",
+    "mdx",
+    "react",
+    "typescript",
+  ],
+  openGraph: {
+    title: "Docsframe — Documentation framework",
+    description: "The easiest documentation framework for your Next.js app",
+    type: "website",
+    images: [
+      {
+        url: "https://docsframe.work/meta-tags.png",
+        width: 1200,
+        height: 628,
+        alt: "Docsframe — Documentation framework",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Docsframe — Documentation framework",
+    description: "The easiest documentation framework for your Next.js app",
+    images: ["https://docsframe.work/meta-tags.png"],
+    creator: "@skredev",
+  },
+  metadataBase: new URL("https://docsframe.work"),
+  authors: {
+    name: "skredev",
+    url: "https://skre.dev",
+  },
+  creator: "skredev",
 };
 
 export default function RootLayout({

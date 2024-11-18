@@ -2,6 +2,19 @@
   "name": "docsframe",
   "version": "0.1.0",
   "description": "The easiest documentation framework for your Next.js app",
+  "keywords": [
+    "components",
+    "documentation",
+    "docs",
+    "framework",
+    "shadcn",
+    "tailwind",
+    "ui",
+    "nextjs",
+    "mdx",
+    "react",
+    "typescript"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev",
