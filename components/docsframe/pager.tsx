@@ -2,8 +2,6 @@ import { NavItem, NavItemWithChildren } from "@/types/index";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { Doc } from "content-collections";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { getDocsConfig, DocsConfig } from "@/lib/docsConfig";
 
 interface DocsPagerProps {
@@ -23,7 +21,7 @@ export async function DocPager({ doc }: DocsPagerProps) {
       {pager?.prev?.href && (
         <Link
           href={pager.prev.href}
-          className={buttonVariants({ variant: "outline" })}
+          className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
         >
           <ChevronLeftIcon className="mr-2 size-4" />
           {pager.prev.title}
@@ -32,7 +30,7 @@ export async function DocPager({ doc }: DocsPagerProps) {
       {pager?.next?.href && (
         <Link
           href={pager.next.href}
-          className={cn(buttonVariants({ variant: "outline" }), "ml-auto")}
+          className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2ml-auto"
         >
           {pager.next.title}
           <ChevronRightIcon className="ml-2 size-4" />

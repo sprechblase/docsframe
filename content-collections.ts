@@ -8,28 +8,22 @@ import { createHighlighter } from "shiki";
 import { visit } from "unist-util-visit";
 
 const prettyCodeOptions: Options = {
-  theme: "github-dark-dimmed",
+  theme: "github-dark",
   getHighlighter: (options) =>
     createHighlighter({
       ...options,
     }),
   onVisitLine(node) {
-    // Prevent lines from collapsing in `display: grid` mode, and allow empty
-    // lines to be copy/pasted
     if (node.children.length === 0) {
       node.children = [{ type: "text", value: " " }];
     }
   },
   onVisitHighlightedLine(node) {
-    if (!node.properties.className) {
-      node.properties.className = [];
-    }
+    node.properties.className ??= [];
     node.properties.className.push("line--highlighted");
   },
   onVisitHighlightedChars(node) {
-    if (!node.properties.className) {
-      node.properties.className = [];
-    }
+    node.properties.className ??= [];
     node.properties.className = ["word--highlighted"];
   },
 };
@@ -40,19 +34,9 @@ const documents = defineCollection({
   include: "**/*.mdx",
   schema: (z) => ({
     title: z.string(),
-    description: z.string(),
+    description: z.string().optional(),
     published: z.boolean().default(true),
-    date: z.string().optional(),
-    links: z
-      .object({
-        doc: z.string().optional(),
-        api: z.string().optional(),
-      })
-      .optional(),
-    featured: z.boolean().optional().default(false),
-    component: z.boolean().optional().default(false),
     toc: z.boolean().optional().default(true),
-    image: z.string().optional(),
   }),
   transform: async (document, context) => {
     const body = await compileMDX(context, document, {
@@ -63,9 +47,8 @@ const documents = defineCollection({
           visit(tree, (node) => {
             if (node?.type === "element" && node?.tagName === "pre") {
               const [codeEl] = node.children;
-              if (codeEl.tagName !== "code") {
-                return;
-              }
+              if (codeEl.tagName !== "code") return;
+
               if (codeEl.data?.meta) {
                 // Extract event from meta and pass it down the tree.
                 const regex = /event="([^"]*)"/;
@@ -75,6 +58,7 @@ const documents = defineCollection({
                   codeEl.data.meta = codeEl.data.meta.replace(regex, "");
                 }
               }
+
               node.__rawString__ = codeEl.children?.[0].value;
               node.__src__ = node.properties?.__src__;
               node.__style__ = node.properties?.__style__;

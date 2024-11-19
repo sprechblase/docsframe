@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SidebarNavItem } from "@/types/index";
-import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";

@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button, buttonVariants } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 
 export default function NotFound() {
@@ -13,13 +12,13 @@ export default function NotFound() {
           Page not found
         </h1>
         <div className="group mt-8 flex w-full items-center justify-center gap-x-3 sm:w-auto">
-          <Button
+          <button
             onClick={() => router.back()}
-            className={buttonVariants({ variant: "default" })}
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
           >
             <ChevronLeft className="size-4 transition-transform group-hover:-translate-x-1" />
             <span>Go back</span>
-          </Button>
+          </button>
         </div>
       </div>
     </section>

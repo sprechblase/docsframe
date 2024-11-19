@@ -1,7 +1,6 @@
 import { Mdx } from "@/components/docsframe/mdx-components";
 import { DocPager } from "@/components/docsframe/pager";
-import { badgeVariants } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/docsframe/scroll-area";
 import { getTableOfContents } from "@/lib/toc";
 import { cn } from "@/lib/utils";
 
@@ -9,7 +8,6 @@ import "@/app/mdx.css";
 
 import { ChevronRightIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { allDocs } from "content-collections";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Contribute } from "@/components/docsframe/contribute";
@@ -71,32 +69,6 @@ export default async function DocPage({ params }: DocPageProps) {
             </p>
           )}
         </div>
-        {doc.links ? (
-          <div className="flex items-center space-x-2 pt-4">
-            {doc.links?.doc && (
-              <Link
-                href={doc.links.doc}
-                target="_blank"
-                rel="noreferrer"
-                className={cn(badgeVariants({ variant: "secondary" }), "gap-1")}
-              >
-                Docs
-                <ExternalLinkIcon className="size-3" />
-              </Link>
-            )}
-            {doc.links?.api && (
-              <Link
-                href={doc.links.api}
-                target="_blank"
-                rel="noreferrer"
-                className={cn(badgeVariants({ variant: "secondary" }), "gap-1")}
-              >
-                API Reference
-                <ExternalLinkIcon className="size-3" />
-              </Link>
-            )}
-          </div>
-        ) : null}
         <div className="pb-12 pt-8">
           <Mdx code={doc.body.code} />
         </div>

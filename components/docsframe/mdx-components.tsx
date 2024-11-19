@@ -1,4 +1,3 @@
-import { Callout } from "./callout";
 import { useMDXComponent } from "@content-collections/mdx/react";
 import Link from "next/link";
 import Image from "next/image";
@@ -164,7 +163,6 @@ const components = {
       />
     );
   },
-  Callout,
 };
 
 interface MDXProps {
