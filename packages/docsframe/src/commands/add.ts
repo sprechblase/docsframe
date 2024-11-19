@@ -11,6 +11,7 @@ const addOptionsSchema = z.object({
   components: z.array(z.string()).optional(),
   overwrite: z.boolean(),
   cwd: z.string(),
+  skipDeps: z.boolean(),
 });
 
 const componentDataSchema = z.object({
@@ -19,9 +20,10 @@ const componentDataSchema = z.object({
   dependencies: z.array(z.string()),
 });
 
+type AddOptions = z.infer<typeof addOptionsSchema>;
 type ComponentData = z.infer<typeof componentDataSchema>;
 
-async function loadComponentsJson(filePath: string) {
+async function loadComponentsJson(filePath: string): Promise<ComponentData[]> {
   if (!fs.existsSync(filePath)) {
     throw new Error(`components.json file not found at ${filePath}.`);
   }
@@ -31,7 +33,7 @@ async function loadComponentsJson(filePath: string) {
 async function updateMdxComponents(
   mdxFilePath: string,
   componentName: string,
-  exports: string[]
+  exports: ComponentData["exports"]
 ): Promise<void> {
   try {
     let mdxComponents = await fs.readFile(mdxFilePath, "utf8");
@@ -86,16 +88,16 @@ ${formattedExports}
 }
 
 async function handleComponentAddition(
-  componentName: string,
   componentData: ComponentData,
-  cwd: string,
-  overwrite: boolean
+  cwd: AddOptions["cwd"],
+  overwrite: AddOptions["overwrite"],
+  skipDeps: AddOptions["skipDeps"]
 ): Promise<boolean> {
   const destinationPath = path.join(
     cwd,
     "components",
     "docsframe",
-    `${componentName}.tsx`
+    `${componentData.name}.tsx`
   );
 
   try {
@@ -110,7 +112,7 @@ async function handleComponentAddition(
 
     await copyManager.component({
       dir: destinationPath,
-      component: componentName,
+      component: componentData.name,
     });
 
     const mdxFilePath = path.join(
@@ -121,14 +123,14 @@ async function handleComponentAddition(
     if (await fs.pathExists(mdxFilePath)) {
       await updateMdxComponents(
         mdxFilePath,
-        componentName,
+        componentData.name,
         componentData.exports
       );
     } else {
       log.warn(`MDX components file not found at ${mdxFilePath}`);
     }
 
-    if (componentData.dependencies.length > 0) {
+    if (componentData.dependencies.length > 0 && !skipDeps) {
       try {
         await packageManager.installComponent({
           dir: cwd,
@@ -137,7 +139,7 @@ async function handleComponentAddition(
         });
       } catch (error) {
         log.warn(
-          `Failed to install dependencies for ${componentName}: ${(error as Error).message}`
+          `Failed to install dependencies for ${componentData.name}: ${(error as Error).message}`
         );
       }
     }
@@ -145,7 +147,7 @@ async function handleComponentAddition(
     return true;
   } catch (error) {
     log.error(
-      `Failed to add component ${componentName}: ${(error as Error).message}`
+      `Failed to add component ${componentData.name}: ${(error as Error).message}`
     );
     return false;
   }
@@ -216,10 +218,10 @@ export const add = new Command()
         }
 
         const success = await handleComponentAddition(
-          componentName,
           componentData,
           cwd,
-          options.overwrite
+          options.overwrite,
+          options.skipDeps
         );
 
         if (success) {
