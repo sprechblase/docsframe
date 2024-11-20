@@ -1,3 +1,6 @@
+import { Callout } from "./callout";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
+import { ComponentPreview } from "./component-preview";
 import { useMDXComponent } from "@content-collections/mdx/react";
 import Link from "next/link";
 import Image from "next/image";
@@ -163,6 +166,12 @@ const components = {
       />
     );
   },
+  ComponentPreview,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  Callout,
 };
 
 interface MDXProps {
