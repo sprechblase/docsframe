@@ -8,5 +8,10 @@
     "name": "tabs",
     "dependencies": ["@radix-ui/react-tabs"],
     "exports": ["Tabs", "TabsList", "TabsTrigger", "TabsContent"]
+  },
+  {
+    "name": "component-preview",
+    "dependencies": [""],
+    "exports": ["ComponentPreview"]
   }
 ]
