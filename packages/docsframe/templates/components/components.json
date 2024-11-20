@@ -3,5 +3,10 @@
     "name": "callout",
     "dependencies": [""],
     "exports": ["Callout"]
+  },
+  {
+    "name": "tabs",
+    "dependencies": ["@radix-ui/react-tabs"],
+    "exports": ["Tabs", "TabsList", "TabsTrigger", "TabsContent"]
   }
 ]
