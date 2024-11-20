@@ -1,17 +1,17 @@
 [
   {
     "name": "callout",
-    "dependencies": [""],
+    "dependencies": ["react"],
     "exports": ["Callout"]
   },
   {
     "name": "tabs",
-    "dependencies": ["@radix-ui/react-tabs"],
+    "dependencies": ["react", "@radix-ui/react-tabs"],
     "exports": ["Tabs", "TabsList", "TabsTrigger", "TabsContent"]
   },
   {
     "name": "component-preview",
-    "dependencies": [""],
+    "dependencies": ["react"],
     "exports": ["ComponentPreview"]
   }
 ]
