@@ -21,7 +21,7 @@ Docsframe
 
 <br>
 
-![hero](https://github.com/skredev/docsframe/blob/main/public/preview_light.png)
+![hero](https://github.com/skredev/docsframe/blob/main/public/preview_dark.png)
 
 <br>
 
