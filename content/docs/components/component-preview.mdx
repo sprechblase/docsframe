@@ -1,0 +1,44 @@
+---
+title: Component Preview
+description: A component preview to display your components in a rendered preview.
+---
+
+<Tabs defaultValue="preview">
+  <TabsList>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+    <TabsTrigger value="code">Code</TabsTrigger>
+  </TabsList>
+  <TabsContent value="preview">
+    <ComponentPreview>
+      <ComponentPreview demo>
+        <Callout>
+          **Lorem:** ipsum dolor sit amet consectetur adipiscing elit.
+        </Callout>
+      </ComponentPreview>
+    </ComponentPreview>
+  </TabsContent>
+  <TabsContent value="code">
+    ```tsx
+    <ComponentPreview>
+      <Callout>
+        **Lorem:** ipsum dolor sit amet consectetur adipiscing elit.
+      </Callout>
+    </ComponentPreview>
+    ```
+  </TabsContent>
+</Tabs>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    ```bash
+    npx docsframe@latest add component-preview
+    ```
+  </TabsContent>
+  <TabsContent value="manual"></TabsContent>
+</Tabs>
