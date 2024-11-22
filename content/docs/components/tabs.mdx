@@ -1,0 +1,51 @@
+---
+title: Tabs
+description: A tabs component to switch between different views. Heavily inspired by shadcn/ui
+---
+
+<Tabs defaultValue="preview">
+  <TabsList>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+    <TabsTrigger value="code">Code</TabsTrigger>
+  </TabsList>
+  <TabsContent value="preview">
+    <ComponentPreview>
+        <Tabs defaultValue="demo">
+        <TabsList>
+            <TabsTrigger value="demo">Demo</TabsTrigger>
+            <TabsTrigger value="code">Code</TabsTrigger>
+        </TabsList>
+        <TabsContent value="demo"></TabsContent>
+        <TabsContent value="code"></TabsContent>
+        </Tabs>
+    </ComponentPreview>
+
+  </TabsContent>
+  <TabsContent value="code">
+    ```tsx
+    <Tabs defaultValue="demo">
+        <TabsList>
+            <TabsTrigger value="demo">Demo</TabsTrigger>
+            <TabsTrigger value="code">Code</TabsTrigger>
+        </TabsList>
+        <TabsContent value="demo"></TabsContent>
+        <TabsContent value="code"></TabsContent>
+    </Tabs>
+    ```
+  </TabsContent>
+</Tabs>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    ```bash
+    npx docsframe@latest add tabs
+    ```
+  </TabsContent>
+  <TabsContent value="manual"></TabsContent>
+</Tabs>
