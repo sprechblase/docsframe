@@ -28,6 +28,14 @@
           {
             "title": "Callout",
             "href": "/docs/components/callout"
+          },
+          {
+            "title": "Tabs",
+            "href": "/docs/components/tabs"
+          },
+          {
+            "title": "Component Preview",
+            "href": "/docs/components/component-preview"
           }
         ]
       }
