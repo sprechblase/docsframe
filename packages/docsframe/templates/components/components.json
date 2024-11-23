@@ -13,5 +13,10 @@
     "name": "component-preview",
     "dependencies": ["react"],
     "exports": ["ComponentPreview"]
+  },
+  {
+    "name": "code-collapsible",
+    "dependencies": ["react", "@radix-ui/react-collapsible"],
+    "exports": ["CodeCollapsible"]
   }
 ]
