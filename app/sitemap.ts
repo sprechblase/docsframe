@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...allDocs.map((post) => ({
       url: `https://docsframe.work/docs/${post.slugAsParams}`,
-      lastModified: post.date,
       priority: 0.8,
     })),
   ];
