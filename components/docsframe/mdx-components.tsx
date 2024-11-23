@@ -1,3 +1,4 @@
+import { CodeCollapsible } from "./code-collapsible";
 import { Callout } from "./callout";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
 import { ComponentPreview } from "./component-preview";
@@ -172,6 +173,7 @@ const components = {
   TabsTrigger,
   TabsContent,
   Callout,
+  CodeCollapsible,
 };
 
 interface MDXProps {
