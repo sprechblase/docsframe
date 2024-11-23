@@ -93,22 +93,28 @@ async function handleComponentAddition(
   overwrite: AddOptions["overwrite"],
   skipDeps: AddOptions["skipDeps"]
 ): Promise<boolean> {
-  const destinationPath = cwd === process.cwd()
-    ? path.join(cwd, "components", "docsframe")
-    : path.join(cwd);
+  const destinationPath =
+    cwd === process.cwd()
+      ? path.join(cwd, "components", "docsframe")
+      : path.join(cwd);
 
   try {
-    await fs.ensureDir(path.dirname(destinationPath));
+    await fs.ensureDir(destinationPath);
 
-    if (!overwrite && (await fs.pathExists(destinationPath))) {
+    const componentDestinationPath = path.join(
+      destinationPath,
+      `${componentData.name}.tsx`
+    );
+
+    if (!overwrite && (await fs.pathExists(componentDestinationPath))) {
       const shouldOverwrite = await confirm({
-        message: `The file ${color.cyan(destinationPath)} already exists. Would you like to overwrite?`,
+        message: `The file ${color.cyan(componentDestinationPath)} already exists. Would you like to overwrite?`,
       });
       if (!shouldOverwrite) return false;
     }
 
     await copyManager.component({
-      dir: path.join(destinationPath, `${componentData.name}.tsx`),
+      dir: componentDestinationPath,
       component: componentData.name,
     });
 
