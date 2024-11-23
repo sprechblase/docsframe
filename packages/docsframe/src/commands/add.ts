@@ -94,8 +94,8 @@ async function handleComponentAddition(
   skipDeps: AddOptions["skipDeps"]
 ): Promise<boolean> {
   const destinationPath = cwd === process.cwd()
-    ? path.join(cwd, "components", "docsframe", `${componentData.name}.tsx`)
-    : path.join(cwd, `${componentData.name}.tsx`);
+    ? path.join(cwd, "components", "docsframe")
+    : path.join(cwd);
 
   try {
     await fs.ensureDir(path.dirname(destinationPath));
@@ -108,14 +108,11 @@ async function handleComponentAddition(
     }
 
     await copyManager.component({
-      dir: destinationPath,
+      dir: path.join(destinationPath, `${componentData.name}.tsx`),
       component: componentData.name,
     });
 
-    const mdxFilePath = path.join(
-      path.dirname(destinationPath),
-      "mdx-components.tsx"
-    );
+    const mdxFilePath = path.join(destinationPath, "mdx-components.tsx");
 
     if (await fs.pathExists(mdxFilePath)) {
       await updateMdxComponents(
@@ -157,7 +154,7 @@ export const add = new Command()
   .option("-o, --overwrite", "overwrite existing files.", false)
   .option(
     "-c, --cwd <cwd>",
-    "the working directory. defaults to the current directory.",
+    "the working directory. defaults to the standard docsframe directory.",
     process.cwd()
   )
   .option("--skip-deps", "skip dependency installation", false)
