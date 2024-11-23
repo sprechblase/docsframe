@@ -93,12 +93,9 @@ async function handleComponentAddition(
   overwrite: AddOptions["overwrite"],
   skipDeps: AddOptions["skipDeps"]
 ): Promise<boolean> {
-  const destinationPath = path.join(
-    cwd,
-    "components",
-    "docsframe",
-    `${componentData.name}.tsx`
-  );
+  const destinationPath = cwd === process.cwd()
+    ? path.join(cwd, "components", "docsframe", `${componentData.name}.tsx`)
+    : path.join(cwd, `${componentData.name}.tsx`);
 
   try {
     await fs.ensureDir(path.dirname(destinationPath));
