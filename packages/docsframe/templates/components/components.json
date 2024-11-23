@@ -18,5 +18,10 @@
     "name": "code-collapsible",
     "dependencies": ["react", "@radix-ui/react-collapsible"],
     "exports": ["CodeCollapsible"]
+  },
+  {
+    "name": "linkedcards",
+    "dependencies": ["react", "next/link"],
+    "exports": ["LinkedCards", "LinkedCardItem"]
   }
 ]
