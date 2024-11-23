@@ -36,5 +36,45 @@ description: A callout component to highlight important information.
     npx docsframe@latest add callout
     ```
   </TabsContent>
-  <TabsContent value="manual"></TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>Copy and paste the following code into your projects components/docsframe folder.</Step>
+      <CodeCollapsible>
+        ```tsx
+        "use client";
+
+        import React from "react";
+        import { cn } from "@/lib/utils";
+
+        interface CalloutProps {
+          children?: React.ReactNode;
+          className?: string;
+        }
+
+        export function Callout({ children, className }: CalloutProps) {
+          return (
+            <div
+              className={cn(
+                "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground bg-background text-foreground",
+                className
+              )}
+            >
+              <div className="text-sm [&_p]:leading-relaxed">{children}</div>
+            </div>
+          );
+        }
+        ```
+      </CodeCollapsible>
+      <Step>Update the imports in the mdx-components.tsx file in the components/docsframe folder.</Step>
+      ```tsx
+      import { Callout } from "@/components/docsframe/callout";
+      // ... existing imports ...
+
+      const components = {
+        // ... existing components ...
+        Callout,
+      };
+      ```
+    </Steps>
+  </TabsContent>
 </Tabs>

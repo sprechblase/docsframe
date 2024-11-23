@@ -28,6 +28,7 @@
     "knip": "knip"
   },
   "dependencies": {
+    "@radix-ui/react-collapsible": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-tabs": "^1.1.1",
     "cmdk": "^1.0.0",
