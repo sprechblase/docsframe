@@ -1,4 +1,3 @@
-import { LinkedCards, LinkedCardItem } from "./linkedcards";
 import { CodeCollapsible } from "./code-collapsible";
 import { Callout } from "./callout";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
@@ -175,8 +174,6 @@ const components = {
   TabsContent,
   Callout,
   CodeCollapsible,
-  LinkedCards,
-  LinkedCardItem,
 };
 
 interface MDXProps {

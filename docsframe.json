@@ -36,6 +36,10 @@
           {
             "title": "Component Preview",
             "href": "/docs/components/component-preview"
+          },
+          {
+            "title": "Code Collapsible",
+            "href": "/docs/components/code-collapsible"
           }
         ]
       }
