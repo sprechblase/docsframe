@@ -1,0 +1,44 @@
+---
+title: MDX
+description: How to use MDX with Docsframe.
+---
+
+## What is MDX?
+
+MDX allows you to use JSX directly in your markdown content. It combines the simplicity of Markdown with the power of React components and embeds them in your content.
+
+## Resources
+
+- [MDX Documentation](https://mdxjs.com/table-of-components/#components) - Learn about built-in components and advanced usage
+- [GitHub Flavored Markdown](https://mdxjs.com/guides/gfm/) - Syntax guide for GFM features
+
+## Using Components in MDX
+
+Docsframe makes it easy to use custom components in your markdown content. Here's how it works:
+
+<Steps>
+
+### Register your component in `components/docsframe/mdx-components.tsx`:
+
+```tsx
+import { MyComponent } from "@/components/docsframe/MyComponent";
+// ... other imports
+
+const components = {
+  MyComponent,
+  // ... other components
+};
+```
+
+### Then use it directly in your MDX files:
+
+```mdx
+<MyComponent>
+    Lorem ipsum dolor sit amet.
+</MyComponent>
+```
+</Steps>
+
+## Built-in Components
+
+Docsframe comes with several [ready-to-use components](/docs/components) that you can use in your MDX files.
