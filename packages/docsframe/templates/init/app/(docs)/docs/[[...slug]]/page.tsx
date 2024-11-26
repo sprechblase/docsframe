@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 import "@/app/mdx.css";
 
-import { ChevronRightIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
+import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { allDocs } from "content-collections";
 import { notFound } from "next/navigation";
 

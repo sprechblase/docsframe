@@ -6,12 +6,13 @@ import { cn } from "@/lib/utils";
 
 import "@/app/mdx.css";
 
-import { ChevronRightIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
+import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { allDocs } from "content-collections";
 import { notFound } from "next/navigation";
 
 import { Contribute } from "@/components/docsframe/contribute";
 import { TableOfContents } from "@/components/docsframe/toc";
+import { Metadata } from "next";
 
 interface DocPageProps {
   params: {
@@ -38,13 +39,29 @@ export async function generateStaticParams(): Promise<
   }));
 }
 
+export async function generateMetadata({ params }: DocPageProps): Promise<Metadata> {
+  const doc = await getDocFromParams({ params });
+
+  if (!doc) {
+    return {
+      title: "Not Found",
+      description: "The page you're looking for doesn't exist.",
+    };
+  }
+
+  return {
+    title: doc.title,
+    description: doc.description,
+  };
+}
+
 export default async function DocPage({ params }: DocPageProps) {
   const doc = await getDocFromParams({ params });
 
   if (!doc || !doc.published) {
     notFound();
   }
-
+  
   const toc = await getTableOfContents(doc.body.raw);
 
   return (

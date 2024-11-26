@@ -38,6 +38,9 @@ export const metadata: Metadata = {
     title: "Docsframe — Documentation framework",
     description: "The easiest documentation framework for your Next.js app",
     type: "website",
+    locale: "en_US",
+    url: "https://docsframe.work",
+    siteName: "Docsframe",
     images: [
       {
         url: "https://docsframe.work/meta-tags.png",
@@ -53,13 +56,26 @@ export const metadata: Metadata = {
     description: "The easiest documentation framework for your Next.js app",
     images: ["https://docsframe.work/meta-tags.png"],
     creator: "@skredev",
+    site: "@docsframe",
   },
   metadataBase: new URL("https://docsframe.work"),
-  authors: {
-    name: "skredev",
-    url: "https://skre.dev",
-  },
+  authors: [
+    {
+      name: "skredev",
+      url: "https://skre.dev",
+    }
+  ],
   creator: "skredev",
+  icons: {
+    icon: "/favicon.ico"
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
+  alternates: {
+    canonical: "https://docsframe.work",
+  },
 };
 
 export default function RootLayout({

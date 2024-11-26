@@ -56,6 +56,21 @@ export function Navbar() {
             >
               <span className="shrink-0">Components</span>
             </Link>
+{/*             <Link
+              href="#"
+              aria-label="Themes"
+              className={cn(
+                "flex items-center justify-center transition-colors hover:text-foreground/80 cursor-not-allowed opacity-60",
+                pathname?.startsWith("/docs/components")
+                  ? "text-foreground"
+                  : "text-foreground/60"
+              )}
+            >
+              <span className="shrink-0">Themes</span>
+              <span className="relative z-10 ml-2 rounded-md bg-[#f5f5f5] px-1.5 py-0.5 text-xs leading-none text-[#575757] no-underline group-hover:no-underline">
+                coming soon
+              </span>
+            </Link> */}
           </nav>
         </div>
         <MobileNav />
