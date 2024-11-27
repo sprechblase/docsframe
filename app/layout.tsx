@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "Docsframe — Documentation framework",
     description: "The easiest documentation framework for your Next.js app",
     images: ["https://docsframe.work/meta-tags.png"],
-    creator: "@skredev",
+    creator: "@docsframe",
     site: "@docsframe",
   },
   metadataBase: new URL("https://docsframe.work"),
@@ -68,13 +68,6 @@ export const metadata: Metadata = {
   creator: "skredev",
   icons: {
     icon: "/favicon.ico"
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-  },
-  alternates: {
-    canonical: "https://docsframe.work",
   },
 };
 
