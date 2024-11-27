@@ -1,9 +1,9 @@
 import { promises as fs } from "fs";
 import path from "path";
-import { SidebarNavItem, NavItem } from "@/types/index";
+import { NavItem } from "@/types/index";
 
 export interface DocsConfig {
-  sidebarNav: SidebarNavItem[];
+  sidebarNav: NavItem[];
 }
 
 interface DocsframeCategory {
@@ -29,7 +29,7 @@ export async function getDocsConfig(): Promise<DocsConfig> {
 
   const { categories } = docsframeData.docsConfig;
 
-  const sidebarNav: SidebarNavItem[] = categories.map(({ title, items }) => ({
+  const sidebarNav: NavItem[] = categories.map(({ title, items }) => ({
     title,
     items: items.map(
       ({ title, href, disabled = false, label = undefined }) => ({

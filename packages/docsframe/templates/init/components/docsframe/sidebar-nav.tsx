@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SidebarNavItem } from "@/types/index";
+import { NavItemWithChildren } from "@/types/index";
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
 export interface DocsSidebarNavProps {
-  items: SidebarNavItem[];
+  items: NavItemWithChildren[];
 }
 
 export function DocsSidebarNav({ items }: DocsSidebarNavProps) {
@@ -35,7 +35,7 @@ export function DocsSidebarNav({ items }: DocsSidebarNavProps) {
 }
 
 interface DocsSidebarNavItemsProps {
-  items: SidebarNavItem[];
+  items: NavItemWithChildren[];
   pathname: string | null;
   groupId: string;
 }
