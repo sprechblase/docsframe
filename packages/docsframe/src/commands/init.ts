@@ -7,8 +7,8 @@ import fs from "fs-extra";
 import color from "picocolors";
 import { Command } from "commander";
 
-import { packageManager } from "../functions/package-manager";
-import { copyManager } from "../functions/copy-manager";
+import { packageManager } from "../functions/packageManager";
+import { copyManager } from "../functions/copyManager";
 import { setup } from "../functions/setup";
 
 const validateDirectory = (dir: string): string | undefined => {

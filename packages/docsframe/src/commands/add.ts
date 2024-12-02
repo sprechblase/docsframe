@@ -2,10 +2,10 @@ import { Command } from "commander";
 import { z } from "zod";
 import path from "node:path";
 import fs from "fs-extra";
-import { copyManager } from "../functions/copy-manager";
+import { copyManager } from "../functions/copyManager";
 import { confirm, log, outro, multiselect } from "@clack/prompts";
 import color from "picocolors";
-import { packageManager } from "../functions/package-manager";
+import { packageManager } from "../functions/packageManager";
 
 const addOptionsSchema = z.object({
   components: z.array(z.string()).optional(),
