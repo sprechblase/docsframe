@@ -113,7 +113,13 @@ const config: Config = {
   			'shiny-text': 'shiny-text 8s infinite',
   			'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',
   			'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear'
-  		}
+  		},
+		dropShadow: {
+			glow: [
+				"0 0px 20px rgba(255, 255, 255, 0.03)",
+				"0 0px 65px rgba(255, 255, 255, 0.06)"
+			]
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],

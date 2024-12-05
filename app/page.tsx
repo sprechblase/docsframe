@@ -76,7 +76,7 @@ export default function Home() {
 
       <section id="preview" className="relative mx-auto mt-36 max-w-[80rem] px-6 md:px-8">
         <BlurFade delay={0.5} inView>
-          <div className="p-1 border rounded-[1.25rem] md:shadow-2xl dark:shadow-white/10 bg-zinc-50 dark:bg-zinc-950">
+          <div className="p-1 border rounded-[1.25rem] bg-zinc-50 dark:bg-zinc-950 md:drop-shadow-glow dark:shadow-white/10 shadow-2xl">
             <div className="relative select-none flex h-[536px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background pointer-events-none">
               <Image
                 src={`/preview_${color === "#030303" ? "light" : "dark"}.png`}
@@ -95,7 +95,7 @@ export default function Home() {
             </div>
           </div>
           
-          <p className="pl-2 py-10 text-center text-sm leading-loose text-muted-foreground md:text-left">
+          <p className="pl-2 py-16 text-center text-sm leading-loose text-muted-foreground md:text-left">
             Built by{" "}
             <a
               href="https://twitter.com/skredev"
