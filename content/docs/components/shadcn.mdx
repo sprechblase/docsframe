@@ -1,0 +1,47 @@
+---
+title: shadcn/ui
+description: You can implement shadcn/ui components in your Docsframe as usual
+---
+
+In addition to the components provided by Docsframe, you can also add external components to enhance the functionality of your documentation.
+
+Some examples of external component libraries that you can use with Docsframe include:
+
+* [shadcn/ui](https://ui.shadcn.com/)
+* [MagicUI](https://magicui.design/) s/o
+
+These libraries provide a wide range of components that you can use to create custom layouts, add interactive elements, and more.
+
+## Usage
+
+For example, to use the `Accordion` component from shadcn/ui, you would install the library using the following command:
+
+<Steps>
+
+###
+
+```bash
+npx shadcn@latest add Accordion
+```
+
+###
+
+```tsx
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+// ... existing imports ...
+
+const components = {
+  // ... existing components ...
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+};
+```
+
+</Steps>

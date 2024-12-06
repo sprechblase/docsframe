@@ -30,6 +30,10 @@
         "title": "Components",
         "items": [
           {
+            "title": "shadcn/ui",
+            "href": "/docs/components/shadcn"
+          },
+          {
             "title": "Callout",
             "href": "/docs/components/callout"
           },
