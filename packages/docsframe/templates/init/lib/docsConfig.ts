@@ -1,9 +1,8 @@
-import { promises as fs } from "fs";
-import path from "path";
-import { NavItem } from "@/types/index";
+import { SidebarNavItem, NavItem } from "@/types/index";
+import { cache } from "react";
 
 export interface DocsConfig {
-  sidebarNav: NavItem[];
+  sidebarNav: SidebarNavItem[];
 }
 
 interface DocsframeCategory {
@@ -17,29 +16,34 @@ interface DocsframeData {
   };
 }
 
-export async function getDocsConfig(): Promise<DocsConfig> {
-  const filePath = path.join(process.cwd(), "docsframe.json");
-  const docsframeJson = await fs.readFile(filePath, "utf8");
+export const getDocsConfig = cache(async () => {
+  try {
+    const docsframeData: DocsframeData = await import("../docsframe.json");
 
-  const docsframeData: DocsframeData = JSON.parse(docsframeJson);
+    if (!docsframeData.docsConfig) {
+      throw new Error("Invalid docsframe.json: Missing 'docsConfig'");
+    }
 
-  if (!docsframeData.docsConfig) {
-    throw new Error("Invalid docsframe.json: Missing 'docsConfig'");
+    const { categories } = docsframeData.docsConfig;
+    const sidebarNav: SidebarNavItem[] = categories.map(({ title, items }) => ({
+      title,
+      items: items.map(
+        ({ title, href, disabled = false, label = undefined }) => ({
+          title,
+          href,
+          disabled,
+          label,
+        })
+      ),
+    }));
+
+    return { sidebarNav };
+  } catch (error) {
+    console.error("Error loading docs configuration:", error);
+    return { sidebarNav: [] };
   }
+});
 
-  const { categories } = docsframeData.docsConfig;
-
-  const sidebarNav: NavItem[] = categories.map(({ title, items }) => ({
-    title,
-    items: items.map(
-      ({ title, href, disabled = false, label = undefined }) => ({
-        title,
-        href,
-        disabled,
-        label,
-      })
-    ),
-  }));
-
-  return { sidebarNav };
+export async function fetchDocsConfig() {
+  return await getDocsConfig();
 }
