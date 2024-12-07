@@ -9,18 +9,11 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Icons } from "@/components/icon";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Menu } from "lucide-react";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
-  const { theme } = useTheme();
-  const [color, setColor] = useState("invert-0");
-
-  useEffect(() => {
-    setColor(theme === "dark" ? "invert" : "invert-0");
-  }, [theme]);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -39,7 +32,7 @@ export function MobileNav() {
           className="flex items-center"
           onOpenChange={setOpen}
         >
-          <Icons.favicon className={cn("size-6", color)} />
+          <Icons.favicon className="size-6 dark:invert" />
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
           <div className="flex flex-col space-y-3">

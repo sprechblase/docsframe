@@ -7,27 +7,19 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { MobileNav } from "./mobile-nav";
 import { CommandMenu } from "./command-menu";
 import { GithubIcon, TwitterIcon } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
-  const { theme } = useTheme();
-  const [color, setColor] = useState("invert-0");
-
-  useEffect(() => {
-    setColor(theme === "dark" ? "invert" : "invert-0");
-  }, [theme]);
 
   return (
     <header className="w-full border-b h-16 sticky top-0 z-50 lg:px-4 px-2 backdrop-filter backdrop-blur-xl bg-opacity-5">
       <div className="sm:p-3 p-2 max-w-[1530px] mx-auto h-full flex items-center justify-between gap-2">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="relative mr-6 flex items-center space-x-2">
-            <Icons.favicon className={cn("size-6", color)} />
+            <Icons.favicon className="size-6 dark:invert" />
             <span className="hidden font-bold md:inline-block">Docsframe</span>
             <Badge variant="outline">Beta</Badge>
           </Link>
@@ -56,21 +48,6 @@ export function Navbar() {
             >
               <span className="shrink-0">Components</span>
             </Link>
-{/*             <Link
-              href="#"
-              aria-label="Themes"
-              className={cn(
-                "flex items-center justify-center transition-colors hover:text-foreground/80 cursor-not-allowed opacity-60",
-                pathname?.startsWith("/docs/components")
-                  ? "text-foreground"
-                  : "text-foreground/60"
-              )}
-            >
-              <span className="shrink-0">Themes</span>
-              <span className="relative z-10 ml-2 rounded-md bg-[#f5f5f5] px-1.5 py-0.5 text-xs leading-none text-[#575757] no-underline group-hover:no-underline">
-                coming soon
-              </span>
-            </Link> */}
           </nav>
         </div>
         <MobileNav />

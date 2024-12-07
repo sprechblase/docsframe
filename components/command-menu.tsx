@@ -1,9 +1,10 @@
-"use client";
-
-import * as React from "react";
+import { useState, useEffect, useCallback } from "react";
+import { SidebarNavItem } from "@/types/index";
 import { useRouter } from "next/navigation";
 import { type DialogProps } from "@radix-ui/react-dialog";
 import { Circle, CircleArrowRight } from "lucide-react";
+
+import { getDocsConfig } from "@/lib/docsConfig";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -17,10 +18,18 @@ import {
 } from "@/components/ui/command";
 
 export function CommandMenu({ ...props }: DialogProps) {
+  const [sidebarNav, setSidebarNav] = useState<SidebarNavItem[]>([]);
   const router = useRouter();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    async function loadConfig() {
+      const config = await getDocsConfig();
+      setSidebarNav(config.sidebarNav);
+    }
+
+    loadConfig();
+
     const down = (e: KeyboardEvent) => {
       if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
         if (
@@ -41,7 +50,7 @@ export function CommandMenu({ ...props }: DialogProps) {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  const runCommand = React.useCallback((command: () => unknown) => {
+  const runCommand = useCallback((command: () => unknown) => {
     setOpen(false);
     command();
   }, []);
@@ -85,7 +94,7 @@ export function CommandMenu({ ...props }: DialogProps) {
               Components
             </CommandItem>
           </CommandGroup>
-          {/*           {docsConfig.sidebarNav.map((group) => (
+          {sidebarNav.map((group) => (
             <CommandGroup key={group.title} heading={group.title}>
               {group.items?.map((navItem) => (
                 <CommandItem
@@ -102,7 +111,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                 </CommandItem>
               ))}
             </CommandGroup>
-          ))} */}
+          ))}
         </CommandList>
       </CommandDialog>
     </>
