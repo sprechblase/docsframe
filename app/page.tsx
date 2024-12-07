@@ -11,7 +11,6 @@ import BlurFade from "@/components/ui/blur-fade";
 import { BorderBeam } from "@/components/ui/border-beam";
 import Particles from "@/components/ui/particles";
 import ShimmerButton from "@/components/ui/shimmer-button";
-import { cn } from "@/lib/utils";
 
 export default function Home() {
   const router = useRouter();
@@ -76,7 +75,7 @@ export default function Home() {
 
       <section id="preview" className="relative mx-auto mt-36 max-w-[80rem] px-6 md:px-8">
         <BlurFade delay={0.5} inView>
-          <div className="p-1 border rounded-[1.25rem] bg-zinc-50 dark:bg-zinc-950 md:drop-shadow-glow dark:shadow-white/10 shadow-2xl">
+          <div className="p-1 border rounded-[1.25rem] bg-zinc-50 dark:bg-zinc-950 drop-shadow-glow">
             <div className="relative select-none flex h-[536px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background pointer-events-none">
               <Image
                 src={`/preview_${color === "#030303" ? "light" : "dark"}.png`}

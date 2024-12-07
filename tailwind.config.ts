@@ -116,8 +116,8 @@ const config: Config = {
   		},
 		dropShadow: {
 			glow: [
-				"0 0px 20px rgba(255, 255, 255, 0.03)",
-				"0 0px 65px rgba(255, 255, 255, 0.06)"
+				`0 0px 20px hsla(var(--foreground) / 0.06)`,
+				`0 0px 65px hsla(var(--foreground) / 0.14)`
 			]
 		}
   	}
