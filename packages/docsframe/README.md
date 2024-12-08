@@ -39,6 +39,7 @@ npx docsframe@latest init
 ### That's it
 
 You are now ready to customize Docsframe and start building your documentation.
+For more information on configuring new documentation pages visit our documentation.
 
 ## Documentation
 

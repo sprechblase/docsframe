@@ -5,7 +5,7 @@ import fs from "fs-extra";
 import { copyManager } from "../functions/copyManager";
 import { confirm, log, outro, multiselect } from "@clack/prompts";
 import color from "picocolors";
-import { packageManager } from "../functions/packageManager";
+import { packageManager, InstallProps } from "../functions/packageManager";
 
 const addOptionsSchema = z.object({
   components: z.array(z.string()).optional(),
@@ -131,8 +131,30 @@ async function handleComponentAddition(
     }
 
     if (componentData.dependencies.length > 0 && !skipDeps) {
+      let command: "npm" | "pnpm";
+
+      if (
+        process.env.npm_execpath?.includes("npx") ||
+        process.argv.some((arg) => arg.includes("npx"))
+      ) {
+        command = "npm";
+        log.info("Detected npm as the package manager.");
+      } else if (
+        (process.env.npm_execpath?.includes("pnpm") &&
+          process.argv.includes("dlx")) ||
+        (process.argv.some((arg) => arg.includes("pnpm")) &&
+          process.argv.includes("dlx"))
+      ) {
+        command = "pnpm";
+        log.info("Detected pnpm as the package manager.");
+      } else {
+        command = "npm";
+        log.info("Defaulting to npm as the package manager.");
+      }
+
       try {
         await packageManager.installComponent({
+          packageManager: command,
           dir: cwd,
           stdio: "inherit",
           deps: componentData.dependencies,

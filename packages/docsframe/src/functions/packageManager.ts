@@ -7,6 +7,7 @@ const DependencyConfigSchema = z.object({
 });
 
 const InstallPropsSchema = z.object({
+  packageManager: z.enum(["npm", "pnpm"]).default("npm"),
   dir: z.string().min(1),
   stdio: z.enum(["pipe", "inherit", "ignore"]).default("pipe"),
   deps: z.array(z.string()).optional(),
@@ -50,16 +51,16 @@ const dependencies: DependencyConfig = {
   ],
 };
 
-function buildInstallCommand(packages: string[], isDev = false): string {
-  return `npm install ${packages.join(" ")} ${isDev ? "-D" : ""} --silent`;
+function buildInstallCommand(packageManager: string, packages: string[], isDev = false): string {
+  return `${packageManager} install ${packages.join(" ")} ${isDev ? "-D" : ""} --silent`;
 }
 
 function install(options: InstallProps): void {
-  const { dir, stdio } = InstallPropsSchema.parse(options);
+  const { packageManager, dir, stdio } = InstallPropsSchema.parse(options);
 
   try {
-    const baseCommand = buildInstallCommand(dependencies.base);
-    const devCommand = buildInstallCommand(dependencies.dev, true);
+    const baseCommand = buildInstallCommand(packageManager, dependencies.base);
+    const devCommand = buildInstallCommand(packageManager, dependencies.dev, true);
 
     execSync(baseCommand, { cwd: dir, stdio });
     execSync(devCommand, { cwd: dir, stdio });
@@ -71,12 +72,12 @@ function install(options: InstallProps): void {
 }
 
 function installComponent(options: InstallProps): void {
-  const { dir, stdio, deps } = InstallPropsSchema.parse(options);
+  const { packageManager, dir, stdio, deps } = InstallPropsSchema.parse(options);
 
   if (!deps?.length) return;
 
   try {
-    const componentCommand = buildInstallCommand(deps);
+    const componentCommand = buildInstallCommand(packageManager, deps);
     execSync(componentCommand, { cwd: dir, stdio });
   } catch (error) {
     throw new Error(

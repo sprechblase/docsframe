@@ -96,6 +96,27 @@ export const init = new Command()
   .action(async () => {
     intro(color.inverse(" Docsframe "));
 
+    let command: "npm" | "pnpm";
+
+    if (
+      process.env.npm_execpath?.includes("npx") ||
+      process.argv.some((arg) => arg.includes("npx"))
+    ) {
+      command = "npm";
+      log.info("Detected npm as the package manager.");
+    } else if (
+      (process.env.npm_execpath?.includes("pnpm") &&
+        process.argv.includes("dlx")) ||
+      (process.argv.some((arg) => arg.includes("pnpm")) &&
+        process.argv.includes("dlx"))
+    ) {
+      command = "pnpm";
+      log.info("Detected pnpm as the package manager.");
+    } else {
+      command = "npm";
+      log.info("Defaulting to npm as the package manager.");
+    }
+
     const dir = path.resolve(
       process.cwd(),
       (await text({
@@ -114,7 +135,11 @@ export const init = new Command()
     await sleep(500);
 
     try {
-      await packageManager.install({ dir, stdio: "inherit" });
+      await packageManager.install({
+        packageManager: command,
+        dir: dir,
+        stdio: "inherit",
+      });
       s.message("Adding necessary files...");
       await sleep(150);
 
