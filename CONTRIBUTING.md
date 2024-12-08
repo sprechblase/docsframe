@@ -21,10 +21,9 @@ Thanks for contributing! We appreciate any support and look forward to your cont
 
 2. **Provide a descriptive title and detailed description of your changes in the pull request.**
 
-## Docsframe MDX Component Development
+## Docsframe Component Development
 
-To add a new MDX component, please refer to the [Docsframe Experimental](https://github.com/skredev/docsframe-experimental) project.
-Once your pull request has been approved, your component will also be added to the Docsframe project.
+To develop a new Component, please refer to the [Docsframe Experimental](https://github.com/skredev/docsframe-experimental) project.
 Please note that the same [Contributing Guidelines](https://github.com/skredev/docsframe-experimental/blob/main/CONTRIBUTING.md) must be followed.
 
 ## Ask for Help
