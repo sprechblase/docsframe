@@ -100,17 +100,20 @@ const documents = defineCollection({
       ],
     });
 
-    const normalizedPath = path.posix.normalize(document._meta.path.replace(/\\/g, "/"));
+    const normalizedPath = document._meta.path.replace(/\\/g, "/");
     const pathParts = normalizedPath.split("/");
     const filename = pathParts.pop() ?? "index";
+    
+    const isIndexFile = filename === "index";
+    const slugAsParams = isIndexFile 
+      ? pathParts.slice(1).join("/") 
+      : [...pathParts.slice(1), filename].join("/");
+    
     return {
       ...document,
       image: `${process.env.NEXT_PUBLIC_APP_URL}/${encodeURI(document.title)}`,
       slug: `/${normalizedPath}`,
-      slugAsParams:
-        filename === "index"
-          ? pathParts.slice(1).join("/")
-          : [...pathParts.slice(1), filename].join("/"),
+      slugAsParams: isIndexFile ? "" : slugAsParams,
       body: {
         raw: document.content,
         code: body,
