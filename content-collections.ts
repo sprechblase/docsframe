@@ -6,6 +6,7 @@ import { codeImport } from "remark-code-import";
 import remarkGfm from "remark-gfm";
 import { createHighlighter } from "shiki";
 import { visit } from "unist-util-visit";
+import path from 'path';
 
 const prettyCodeOptions: Options = {
   theme: "github-dark",
@@ -99,10 +100,9 @@ const documents = defineCollection({
       ],
     });
 
-    const normalizedPath = document._meta.path.replace(/\\/g, "/");
+    const normalizedPath = path.posix.normalize(document._meta.path.replace(/\\/g, "/"));
     const pathParts = normalizedPath.split("/");
     const filename = pathParts.pop() ?? "index";
-
     return {
       ...document,
       image: `${process.env.NEXT_PUBLIC_APP_URL}/${encodeURI(document.title)}`,
