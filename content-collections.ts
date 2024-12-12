@@ -101,9 +101,6 @@ const documents = defineCollection({
     });
 
     const pathToDocument = document._meta.path.split(path.sep).slice(1).join("/");
-    console.log(document._meta.path);
-    console.log(pathToDocument);
-    console.log(process.env.NEXT_PUBLIC_APP_URL);
 
     return {
       ...document,
