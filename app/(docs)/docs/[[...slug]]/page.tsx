@@ -24,10 +24,7 @@ async function getDocFromParams({ params }: DocPageProps) {
   const slug = params.slug?.join("/") || "";
   
   if (slug === "") {
-    const indexDoc = allDocs.find(doc => 
-      doc.slugAsParams === "" || 
-      doc.slugAsParams.endsWith("/index")
-    );
+    const indexDoc = allDocs.find(doc => doc.slugAsParams === "docs/index");
     
     if (indexDoc) return indexDoc;
   }
