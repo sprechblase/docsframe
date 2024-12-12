@@ -22,20 +22,11 @@ interface DocPageProps {
 
 async function getDocFromParams({ params }: DocPageProps) {
   const slug = params.slug?.join("/") || "";
-  console.log("Constructed slug:", slug);
+  
+  const doc = allDocs.find((doc) => doc.slugAsParams === slug) || 
+              allDocs.find((doc) => doc.slugAsParams === "index");
 
-  if (!slug) {
-    return allDocs.find((doc) => doc.slugAsParams === "index");
-  }
-
-  const doc = allDocs.find((doc) => doc.slugAsParams === slug);
-
-  if (!doc) {
-    console.warn("Document not found for slug:", slug);
-    return null;
-  }
-
-  return doc;
+  return doc && doc.published ? doc : null;
 }
 
 export async function generateStaticParams(): Promise<
