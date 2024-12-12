@@ -106,13 +106,15 @@ const documents = defineCollection({
     
     const isIndexFile = filename === "index";
     const slugAsParams = isIndexFile 
-      ? pathParts.slice(1).join("/") 
+      ? pathParts.slice(1, -1).join("/")
       : [...pathParts.slice(1), filename].join("/");
     
     return {
       ...document,
       image: `${process.env.NEXT_PUBLIC_APP_URL}/${encodeURI(document.title)}`,
-      slug: `/${normalizedPath}`,
+      slug: isIndexFile 
+        ? `/${pathParts.slice(1, -1).join("/")}` 
+        : `/${normalizedPath}`,
       slugAsParams: isIndexFile ? "" : slugAsParams,
       body: {
         raw: document.content,
