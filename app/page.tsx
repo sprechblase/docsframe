@@ -23,7 +23,7 @@ export default function Home() {
 
   return (
     <main className="mx-auto flex-1">
-      <section id="hero" className="relative mx-auto mt-28 max-w-[80rem] text-center px-6 md:px-8">
+      <section id="hero" className="relative mx-auto mt-20 max-w-[80rem] text-center px-2 sm:px-6 md:px-8 md:mt-28">
         <Particles
           className="absolute inset-0"
           quantity={100}
@@ -61,7 +61,7 @@ export default function Home() {
           </p>
         </BlurFade>
         <BlurFade delay={0.4} yOffset={-6} inView>
-          <div className="flex justify-center group mt-24">
+          <div className="flex justify-center group mt-20 md:mt-24">
             <ShimmerButton
               className="shadow-2xl"
               onClick={() => router.push("/docs/getting-started")}
@@ -73,10 +73,10 @@ export default function Home() {
         </BlurFade>
       </section>
 
-      <section id="preview" className="relative mx-auto mt-36 max-w-[80rem] px-6 md:px-8">
+      <section id="preview" className="relative mx-auto mt-16 max-w-[80rem] px-2 sm:px-6 md:px-8 md:mt-36">
         <BlurFade delay={0.5} inView>
           <div className="p-1 border rounded-[1.25rem] bg-zinc-50 dark:bg-zinc-950 drop-shadow-glow">
-            <div className="relative select-none flex h-[536px] w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background pointer-events-none">
+            <div className="relative select-none flex w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background pointer-events-none">
               <Image
                 src={`/preview_${color === "#030303" ? "light" : "dark"}.png`}
                 height={536}

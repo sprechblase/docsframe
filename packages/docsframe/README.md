@@ -53,4 +53,4 @@ To get started, check out our [contribution guide](https://github.com/skredev/do
 
 ## License
 
-Licensed under the [MIT license](https://github.com/skredev/docsframe/blob/main/LICENSE.md).
+Licensed under the [MIT license](https://github.com/skredev/docsframe/blob/main/LICENSE).
