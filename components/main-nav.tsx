@@ -9,7 +9,8 @@ import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 import { MobileNav } from "./mobile-nav";
 import { CommandMenu } from "./command-menu";
-import { GithubIcon, TwitterIcon } from "lucide-react";
+import { GithubIcon, StarIcon, TwitterIcon } from "lucide-react";
+import ShinyButton from "./ui/shiny-button";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -52,6 +53,13 @@ export function Navbar() {
         </div>
         <MobileNav />
         <div className="flex flex-1 items-center justify-between gap-2 md:justify-end">
+          <Link href="https://github.com/skredev/docsframe" className="md:pr-16 hidden sm:block">
+            <ShinyButton className="flex items-center justify-center">
+              <GithubIcon className="size-4 inline-block" />
+              <span className="mx-2">Star on GitHub</span>
+              <StarIcon className="inline-block size-4" />
+            </ShinyButton>
+          </Link>
           <div className="w-full flex-1 md:w-auto md:flex-none">
             <CommandMenu />
           </div>
