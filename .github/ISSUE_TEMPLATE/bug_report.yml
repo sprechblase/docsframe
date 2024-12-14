@@ -48,6 +48,7 @@ body:
         - Safari
         - Firefox Mobile
         - Safari Mobile
+        - Other (e.g. Terminal)
   - type: textarea
     id: additional-info
     attributes:

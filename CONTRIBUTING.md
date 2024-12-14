@@ -24,7 +24,6 @@ Thanks for contributing! We appreciate any support and look forward to your cont
 ## Docsframe Component Development
 
 To develop a new Component, please refer to the [Docsframe Experimental](https://github.com/skredev/docsframe-experimental) project.
-Please note that the same [Contributing Guidelines](https://github.com/skredev/docsframe-experimental/blob/main/CONTRIBUTING.md) must be followed.
 
 ## Ask for Help
 
