@@ -98,18 +98,11 @@ export const init = new Command()
 
     let command: "npm" | "pnpm";
 
-    if (
-      process.env.npm_execpath?.includes("npx") ||
-      process.argv.some((arg) => arg.includes("npx"))
-    ) {
+    const userAgent = process.env.npm_config_user_agent;
+    if (userAgent && userAgent.startsWith("npm")) {
       command = "npm";
       log.info("Detected npm as the package manager.");
-    } else if (
-      (process.env.npm_execpath?.includes("pnpm") &&
-        process.argv.includes("dlx")) ||
-      (process.argv.some((arg) => arg.includes("pnpm")) &&
-        process.argv.includes("dlx"))
-    ) {
+    } else if (userAgent && userAgent.startsWith("pnpm")) {
       command = "pnpm";
       log.info("Detected pnpm as the package manager.");
     } else {
