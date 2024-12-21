@@ -48,7 +48,8 @@ export async function setup(props: SetupProps) {
       createDocsframeJson(validatedProps),
       updateTsconfig(dir),
       updateNextConfig(dir),
-      appendGlobalStyles(dir),
+      updateGlobalStyles(dir),
+      updateReadMe(dir),
     ]);
 
     const failures = results.filter(
@@ -78,6 +79,7 @@ export async function setup(props: SetupProps) {
   }
 }
 
+// createDocsframeJson
 async function createDocsframeJson(props: SetupProps): Promise<void> {
   const { dir, contributionOwner, contributionRepo } = props;
   const docsframeJsonPath = path.join(dir, "docsframe.json");
@@ -122,6 +124,7 @@ async function createDocsframeJson(props: SetupProps): Promise<void> {
   );
 }
 
+// updateTsconfig
 async function updateTsconfig(dir: string): Promise<void> {
   const tsconfigPath = path.join(dir, "tsconfig.json");
   const jsconfigPath = path.join(dir, "jsconfig.json");
@@ -157,6 +160,7 @@ async function updateTsconfig(dir: string): Promise<void> {
   }
 }
 
+// updateNextConfig
 async function updateNextConfig(dir: string): Promise<void> {
   const nextConfigPath = path.join(dir, "next.config.mjs");
 
@@ -188,7 +192,8 @@ async function updateNextConfig(dir: string): Promise<void> {
   await fs.writeFile(nextConfigPath, content, "utf8");
 }
 
-async function appendGlobalStyles(dir: string): Promise<void> {
+// updateGlobalStyles
+async function updateGlobalStyles(dir: string): Promise<void> {
   const globalsCssPath = path.join(dir, "app", "globals.css");
 
   if (!(await fs.pathExists(globalsCssPath))) {
@@ -222,4 +227,30 @@ async function appendGlobalStyles(dir: string): Promise<void> {
 }`;
 
   await fs.appendFile(globalsCssPath, `\n${additionalStyles}`, "utf8");
+}
+
+// updateReadMe
+async function updateReadMe(dir: string): Promise<void> {
+  const readMePath = path.join(dir, "README.md");
+
+  if (!(await fs.pathExists(readMePath))) {
+    console.warn("README.md not found");
+    return;
+  }
+
+  const readMeAddition = `
+## You've added Docsframe
+
+Thank you for adding Docsframe to your project!
+To learn more about Docsframe and how to configure it, please refer to the following resources:
+
+- [Docsframe Documentation](https://docsframe.work/docs) - learn more about Docsframe`;
+
+  const existingContent = await fs.readFile(readMePath, "utf8");
+
+  await fs.writeFile(
+    readMePath,
+    `${readMeAddition}\n${existingContent}`,
+    "utf8"
+  );
 }
