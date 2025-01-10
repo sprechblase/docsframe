@@ -23,20 +23,23 @@ interface DocPageProps {
 async function getDocFromParams({ params }: DocPageProps) {
   const { slug } = await params;
   const slugPath = slug?.join("/") || "";
-  
-  const doc = allDocs.find((doc) => doc.slugAsParams === slugPath) || 
-              allDocs.find((doc) => doc.slugAsParams === "index");
+
+  const doc =
+    allDocs.find((doc) => doc.slugAsParams === slugPath) ||
+    allDocs.find((doc) => doc.slugAsParams === "index");
 
   return doc && doc.published ? doc : null;
 }
 
-export async function generateStaticParams(){
+export async function generateStaticParams() {
   return allDocs.map((doc) => ({
     slug: doc.slugAsParams.split("/"),
   }));
 }
 
-export async function generateMetadata({ params }: DocPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: DocPageProps): Promise<Metadata> {
   const doc = await getDocFromParams({ params });
 
   if (!doc) {
@@ -58,7 +61,7 @@ export default async function DocPage({ params }: DocPageProps) {
   if (!doc || !doc.published) {
     notFound();
   }
-  
+
   const toc = await getTableOfContents(doc.body.raw);
 
   return (

@@ -1,15 +1,31 @@
+"use client";
+
 import { NavItem, NavItemWithChildren } from "@/types/index";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { Doc } from "content-collections";
 import Link from "next/link";
 import { getDocsConfig, DocsConfig } from "@/lib/docsConfig";
+import { useEffect, useState } from "react";
 
 interface DocsPagerProps {
   doc: Doc;
 }
 
-export async function DocPager({ doc }: DocsPagerProps) {
-  const docsConfig = await getDocsConfig();
+export function DocPager({ doc }: DocsPagerProps) {
+  const [docsConfig, setDocsConfig] = useState<DocsConfig | null>(null);
+
+  useEffect(() => {
+    const fetchDocsConfig = async () => {
+      const config = await getDocsConfig();
+      setDocsConfig(config);
+    };
+    fetchDocsConfig();
+  }, []);
+
+  if (!docsConfig) {
+    return null;
+  }
+
   const pager = getPagerForDoc(doc, docsConfig);
 
   if (!pager) {
@@ -30,7 +46,7 @@ export async function DocPager({ doc }: DocsPagerProps) {
       {pager?.next?.href && (
         <Link
           href={pager.next.href}
-          className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2ml-auto"
+          className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 ml-auto"
         >
           {pager.next.title}
           <ChevronRightIcon className="ml-2 size-4" />

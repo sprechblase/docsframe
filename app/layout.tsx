@@ -77,14 +77,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} relative flex min-h-screen w-full flex-col overflow-x-hidden scroll-smooth bg-background antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark">
-          <Navbar />
-          {children}
-        </ThemeProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            {children}
+          </ThemeProvider>
       </body>
     </html>
   );
