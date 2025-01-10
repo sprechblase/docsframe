@@ -15,23 +15,22 @@ import { TableOfContents } from "@/components/docsframe/toc";
 import { Metadata } from "next";
 
 interface DocPageProps {
-  params: {
+  params: Promise<{
     slug: string[];
-  };
+  }>;
 }
 
 async function getDocFromParams({ params }: DocPageProps) {
-  const slug = params.slug?.join("/") || "";
+  const { slug } = await params;
+  const slugPath = slug?.join("/") || "";
   
-  const doc = allDocs.find((doc) => doc.slugAsParams === slug) || 
+  const doc = allDocs.find((doc) => doc.slugAsParams === slugPath) || 
               allDocs.find((doc) => doc.slugAsParams === "index");
 
   return doc && doc.published ? doc : null;
 }
 
-export async function generateStaticParams(): Promise<
-  DocPageProps["params"][]
-> {
+export async function generateStaticParams(){
   return allDocs.map((doc) => ({
     slug: doc.slugAsParams.split("/"),
   }));
