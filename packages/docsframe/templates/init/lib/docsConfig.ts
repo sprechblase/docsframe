@@ -1,22 +1,26 @@
 import { SidebarNavItem, NavItem } from "@/types/index";
-import { cache } from "react";
 
 export interface DocsConfig {
   sidebarNav: SidebarNavItem[];
 }
 
-interface DocsframeCategory {
-  title: string;
-  items: NavItem[];
-}
-
-interface DocsframeData {
+export interface DocsframeData {
   docsConfig: {
-    categories: DocsframeCategory[];
+    categories: {
+      title: string;
+      items: NavItem[];
+    }[];
   };
 }
 
-export const getDocsConfig = cache(async () => {
+export interface DocsframeContribution {
+  contribution: {
+    owner: string;
+    repo: string;
+  };
+}
+
+export const getDocsConfig = async () => {
   try {
     const docsframeData: DocsframeData = await import("../docsframe.json");
 
@@ -42,8 +46,21 @@ export const getDocsConfig = cache(async () => {
     console.error("Error loading docs configuration:", error);
     return { sidebarNav: [] };
   }
-});
+};
 
-export async function fetchDocsConfig() {
-  return await getDocsConfig();
-}
+export const getContribution = async () => {
+  try {
+    const docsframeContribution: DocsframeContribution = await import(
+      "../docsframe.json"
+    );
+
+    if (!docsframeContribution.contribution) {
+      throw new Error("Invalid docsframe.json: Missing 'contribution'");
+    }
+
+    return docsframeContribution;
+  } catch (error) {
+    console.error("Error loading docs configuration:", error);
+    return null;
+  }
+};
