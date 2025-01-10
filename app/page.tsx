@@ -22,7 +22,7 @@ export default function Home() {
   }, [theme]);
 
   return (
-    <main className="mx-auto flex-1">
+    <main className="mx-auto flex-1 hero">
       <section id="hero" className="relative mx-auto mt-20 max-w-[80rem] text-center px-2 sm:px-6 md:px-8 md:mt-28">
         <Particles
           className="absolute inset-0"
