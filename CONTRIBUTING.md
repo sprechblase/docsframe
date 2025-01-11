@@ -23,7 +23,7 @@ Thanks for contributing! We appreciate any support and look forward to your cont
 
 ## Docsframe Component Development
 
-To develop a new Component, please refer to the [Docsframe Experimental](https://github.com/skredev/docsframe-experimental) project.
+The best experience when developing a new component is to initialize a new Docsframe project and start building within it.
 
 ## Ask for Help
 
