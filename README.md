@@ -1,4 +1,4 @@
-![hero](https://github.com/skredev/docsframe/blob/main/public/GitHub-Header.png)
+![hero](https://github.com/sprechblase/docsframe/blob/main/public/GitHub-Header.png)
 
 <h1 align="center">
 Docsframe
@@ -9,9 +9,9 @@ Docsframe
 </p>
 
 <div align="center">
-    <a href="https://github.com/skredev/docsframe/stargazers"><img src="https://img.shields.io/github/stars/skredev/docsframe?logo=github&style=flat" alt="github stars" /></a>
-    <a href="https://github.com/skredev/docsframe"><img src="https://img.shields.io/github/last-commit/skredev/docsframe/main?logo=git&logoColor=white&style=flat" alt="github last commit" /></a>
-    <a href="https://github.com/skredev/docsframe/blob/main/LICENSE"><img src="https://img.shields.io/github/license/skredev/docsframe?logoColor=white&style=flat" alt="github license" /></a>
+    <a href="https://github.com/sprechblase/docsframe/stargazers"><img src="https://img.shields.io/github/stars/sprechblase/docsframe?logo=github&style=flat" alt="github stars" /></a>
+    <a href="https://github.com/sprechblase/docsframe"><img src="https://img.shields.io/github/last-commit/sprechblase/docsframe/main?logo=git&logoColor=white&style=flat" alt="github last commit" /></a>
+    <a href="https://github.com/sprechblase/docsframe/blob/main/LICENSE"><img src="https://img.shields.io/github/license/sprechblase/docsframe?logoColor=white&style=flat" alt="github license" /></a>
 </div>
 
 <div align="center">
@@ -21,7 +21,7 @@ Docsframe
 
 <br>
 
-![hero](https://github.com/skredev/docsframe/blob/main/public/preview_dark.png)
+![hero](https://github.com/sprechblase/docsframe/blob/main/public/preview_dark.png)
 
 <br>
 
@@ -51,4 +51,4 @@ We appreciate your feedback and will do our best to address the issues fast!
 
 We welcome and appreciate any contributions!
 
-To get started, check out our [contribution guide](https://github.com/skredev/docsframe/blob/main/CONTRIBUTING.md).
+To get started, check out our [contribution guide](https://github.com/sprechblase/docsframe/blob/main/CONTRIBUTING.md).

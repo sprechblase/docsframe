@@ -1,7 +1,7 @@
 {
   "name": "docsframe",
   "description": "The easiest documentation framework for your Next.js app",
-  "version": "0.2.1-beta",
+  "version": "0.2.3-beta",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "bin": "./dist/index.js",
@@ -28,11 +28,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/skredev/docsframe",
+    "url": "https://github.com/sprechblase/docsframe",
     "directory": "packages/cli"
   },
   "bugs": {
-    "url": "https://github.com/skredev/docsframe/issues"
+    "url": "https://github.com/sprechblase/docsframe/issues"
   },
   "homepage": "https://docsframe.work",
   "engines": {

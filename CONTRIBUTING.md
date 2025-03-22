@@ -5,7 +5,7 @@ Thanks for contributing! We appreciate any support and look forward to your cont
 ## Getting Started
 
 1. **Fork this repository to your own GitHub account.**  
-   Click [here](https://github.com/skredev/docsframe/fork) to fork the repository.
+   Click [here](https://github.com/sprechblase/docsframe/fork) to fork the repository.
 2. **Create a new branch for your changes. Use a descriptive name, such as `feature/feature-name` or `fix/fix-name`.**
 
 3. **Using Prettier is necessary.**
@@ -23,10 +23,10 @@ Thanks for contributing! We appreciate any support and look forward to your cont
 
 ## Docsframe Component Development
 
-To develop a new Component, please refer to the [Docsframe Experimental](https://github.com/skredev/docsframe-experimental) project.
+To develop a new Component, please refer to the [Docsframe Experimental](https://github.com/sprechblase/docsframe-experimental) project.
 
 ## Ask for Help
 
-For any help or questions, please open a new [GitHub issue](https://github.com/skredev/docsframe/issues/new/choose).
+For any help or questions, please open a new [GitHub issue](https://github.com/sprechblase/docsframe/issues/new/choose).
 
 Thank you for your contributions!

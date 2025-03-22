@@ -1,4 +1,4 @@
-![hero](https://github.com/skredev/docsframe/blob/main/public/GitHub-Header.png)
+![hero](https://github.com/sprechblase/docsframe/blob/main/public/GitHub-Header.png)
 
 <h1 align="center">
 Docsframe
@@ -11,7 +11,6 @@ Docsframe
 
 <br>
 
-> [!WARNING]
 > 🚧 This project is in beta and should be used with caution.
 
 <br>
@@ -49,8 +48,8 @@ Visit our [documentation](https://docsframe.work/docs) to learn more about Docsf
 
 We welcome and appreciate any contributions!
 
-To get started, check out our [contribution guide](https://github.com/skredev/docsframe/blob/main/CONTRIBUTING.md).
+To get started, check out our [contribution guide](https://github.com/sprechblase/docsframe/blob/main/CONTRIBUTING.md).
 
 ## License
 
-Licensed under the [MIT license](https://github.com/skredev/docsframe/blob/main/LICENSE).
+Licensed under the [MIT license](https://github.com/sprechblase/docsframe/blob/main/LICENSE).

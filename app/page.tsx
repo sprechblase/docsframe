@@ -106,7 +106,7 @@ export default function Home() {
             </a>
             . The source code is available on{" "}
             <a
-              href="https://github.com/skredev/docsframe"
+              href="https://github.com/sprechblase/docsframe"
               target="_blank"
               rel="noreferrer"
               className="underline underline-offset-4"
