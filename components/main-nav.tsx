@@ -53,7 +53,7 @@ export function Navbar() {
         </div>
         <MobileNav />
         <div className="flex flex-1 items-center justify-between gap-2 md:justify-end">
-          <Link href="https://github.com/skredev/docsframe" className="md:pr-16 hidden sm:block">
+          <Link href="https://github.com/sprechblase/docsframe" className="md:pr-16 hidden sm:block">
             <ShinyButton className="flex items-center justify-center">
               <GithubIcon className="size-4 inline-block" />
               <span className="mx-2">Star on GitHub</span>
@@ -65,7 +65,7 @@ export function Navbar() {
           </div>
           <nav className="flex items-center gap-2">
             <Link
-              href="https://github.com/skredev/docsframe"
+              href="https://github.com/sprechblase/docsframe"
               target="_blank"
               rel="noreferrer"
             >
