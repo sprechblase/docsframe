@@ -21,10 +21,6 @@ Thanks for contributing! We appreciate any support and look forward to your cont
 
 2. **Provide a descriptive title and detailed description of your changes in the pull request.**
 
-## Docsframe Component Development
-
-To develop a new Component, please refer to the [Docsframe Experimental](https://github.com/sprechblase/docsframe-experimental) project.
-
 ## Ask for Help
 
 For any help or questions, please open a new [GitHub issue](https://github.com/sprechblase/docsframe/issues/new/choose).
