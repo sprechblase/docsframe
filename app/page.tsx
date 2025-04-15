@@ -78,7 +78,16 @@ export default function Home() {
           <div className="p-1 border rounded-[1.25rem] bg-zinc-50 dark:bg-zinc-950 drop-shadow-glow">
             <div className="relative select-none flex w-full flex-col items-center justify-center overflow-hidden rounded-2xl border bg-background pointer-events-none">
               <Image
-                src={`/preview_${color === "#030303" ? "light" : "dark"}.png`}
+                src={`/preview_light.png`}
+                className="mb-4 block dark:hidden"
+                height={536}
+                width={1200}
+                alt="Preview picture"
+                priority
+              />
+              <Image
+                src={`/preview_dark.png`}
+                className="hidden dark:block"
                 height={536}
                 width={1200}
                 alt="Preview picture"
