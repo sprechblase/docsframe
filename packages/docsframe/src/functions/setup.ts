@@ -162,11 +162,14 @@ async function updateTsconfig(dir: string): Promise<void> {
 
 // updateNextConfig
 async function updateNextConfig(dir: string): Promise<void> {
-  const nextConfigPath = path.join(dir, "next.config.mjs");
-
-  if (!(await fs.pathExists(nextConfigPath))) {
-    throw new Error("next.config.mjs not found");
+  const files = await fs.readdir(dir);
+  const nextConfigFile = files.find((file) => file.startsWith("next.config"));
+  if (!nextConfigFile) {
+    throw new Error(
+      `No Next.js config file found (expected a file starting with 'next.config' in ${dir})`
+    );
   }
+  const nextConfigPath = path.join(dir, nextConfigFile);
 
   let content = await fs.readFile(nextConfigPath, "utf8");
 
