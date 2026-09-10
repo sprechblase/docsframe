@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This project is no longer actively maintained or developed.
+
 ![hero](https://github.com/sprechblase/docsframe/blob/main/public/GitHub-Header.png)
 
 <h1 align="center">
