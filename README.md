@@ -42,7 +42,7 @@ Docsframe is one of the easiest ways to quickly build project documentation with
 
 ## Documentation
 
-Visit our [documentation](https://docsframe.work/docs) to learn more about Docsframe
+Visit our [documentation](https://github.com/sprechblase/docsframe/tree/main/content/docs) to learn more about Docsframe
 
 ## Reporting Issues
 
